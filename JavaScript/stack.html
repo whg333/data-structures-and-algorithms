@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>stack</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/ArrayStack.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var stack = new ArrayStack();
+      info("var stack = new ArrayStack();", stack.toString());
+      assert(stack.isEmpty(), "stack.isEmpty() == true");
+
+      stack.push(5, 8);
+      info("stack.push(5, 8);", stack.toString());
+      assert(stack.peek() == 8, "stack.peek() == 8");
+
+      stack.push(11);
+      info("stack.push(11);", stack.toString());
+      assert(stack.size() == 3, "stack.size() == 3");
+      assert(!stack.isEmpty(), "stack.isEmpty() == false");
+
+      stack.push(15);
+      info("stack.push(15);", stack.toString());
+
+      stack.pop();
+      var popEle = stack.pop();
+      info("stack.pop();", "var popEle = stack.pop();", stack.toString());
+      assert(popEle == 11, "popEle == 11");
+
+      assert(stack.peek() == 8, "stack.peek() == 8");
+      assert(stack.size() == 2, "stack.size() == 2");
+
+      stack.clear();
+      info("stack.clear();", stack.toString());
+      assert(stack.isEmpty(), "stack.isEmpty() == true");
+      assert(stack.size() == 0, "stack.size() == 0");
+    </script>
+  </body>
+</html>

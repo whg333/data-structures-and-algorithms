@@ -1,0 +1,4 @@
+ul#results { border: 2px ridge maroon; background-color: #ffffcc; padding: 0.25em 1.5em; margin-left: 0; }
+li.pass { font-weight:bold; color: green; }
+li.fail { font-weight:bold; color: red; text-decoration: line-through; }
+li.info { color: cornflowerblue; }
