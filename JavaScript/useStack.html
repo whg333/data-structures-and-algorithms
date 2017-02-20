@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>stack</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/ArrayStack.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function divideBy2(intNum){
+        return intConverter(intNum, 2);
+      }
+
+      function intConverter(intNum, base){
+        if(intNum < 0) throw new Error("intNum="+intNum+", intNum must be positive");
+        if(intNum == 0) return '0';
+
+        var stack = new ArrayStack();
+        var remainder;
+        while(intNum > 0){
+          remainder = intNum % base;
+          stack.push(remainder);
+          intNum = Math.floor(intNum / base);
+        }
+
+        var resultStrArray = "0123456789ABCDEF";
+        var resultStr = '';
+        while(!stack.isEmpty()){
+          resultStr += resultStrArray[stack.pop()];
+        }
+        return resultStr;
+      }
+
+      try{
+        divideBy2(-1);
+      }catch(err){
+        assert(false, "divideBy2(-1); "+err);
+      }
+
+      assert(divideBy2(0) == '0', "0 binary is 0");
+      assert(divideBy2(1) == '1', "1 binary is 1");
+      assert(divideBy2(2) == '10', "2 binary is 10");
+
+      assert(divideBy2(233) == '11101001', "233 binary is 11101001");
+      assert(divideBy2(10) == '1010', "10 binary is 1010");
+      assert(divideBy2(1000) == '1111101000', "1000 binary is 1111101000");
+
+      assert(intConverter(0, 8) == '0', "0 8base is 0");
+      assert(intConverter(0, 16) == '0', "0 16base is 0");
+
+      assert(intConverter(100345, 2) == '11000011111111001', "100345 binary is 11000011111111001");
+      assert(intConverter(100345, 8) == '303771', "100345 8base is 303771");
+      assert(intConverter(100345, 16) == '187F9', "100345 16base is 187F9");
+    </script>
+  </body>
+</html>
