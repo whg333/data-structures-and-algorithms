@@ -1,19 +1,19 @@
-function ArrayStack(){
+function ArrayQueue(){
     this.array = [];
 }
 
-ArrayStack.prototype = {
-    constructor:ArrayStack,
-    push:function(){
+ArrayQueue.prototype = {
+    constructor:ArrayQueue,
+    enqueue:function(){
         for(var index in arguments){
             this.array.push(arguments[index]);
         }
     },
-    pop:function(){
-        return this.array.pop();
+    dequeue:function(){
+        return this.array.shift();
     },
-    peek:function(){
-        return this.array[this.array.length-1];
+    front:function(){
+        return this.array[0];
     },
     isEmpty:function(){
         return this.array.length == 0;
@@ -25,6 +25,6 @@ ArrayStack.prototype = {
         return this.array.length;
     },
     toString:function(){
-        return "ArrayStack [array="+this.array+"]";
+        return "ArrayQueue [array="+this.array+"]";
     }
 }
