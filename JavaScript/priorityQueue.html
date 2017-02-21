@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>priorityQueue</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/PriorityArrayQueue.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var queue = new PriorityArrayQueue();
+      info("var queue = new PriorityArrayQueue();", queue.toString());
+      assert(queue.isEmpty(), "queue.isEmpty() == true");
+
+      queue.enqueue('John', 1);
+      info("queue.enqueue('John', 1);", queue.toString());
+      assert(queue.front() == 'John', "queue.front() == 'John'");
+
+      queue.enqueue('Jack', 2);
+      info("queue.enqueue('Jack', 2);", queue.toString());
+      assert(queue.size() == 2, "queue.size() == 2");
+      assert(!queue.isEmpty(), "queue.isEmpty() == false");
+
+      queue.enqueue('Camila', 2);
+      info("queue.enqueue('Camila', 2);", queue.toString());
+      assert(queue.front() == 'Jack', "queue.front() == 'Jack'");
+
+      queue.enqueue('Alice', 5);
+      info("queue.enqueue('Alice', 5);", queue.toString());
+      assert(queue.front() == 'Alice', "queue.front() == 'Alice'");
+
+      queue.dequeue();
+      var dequeueEle = queue.dequeue();
+      info("queue.dequeue();", "var dequeueEle = queue.dequeue();", queue.toString());
+      assert(dequeueEle == 'Jack', "dequeueEle == Jack");
+    </script>
+  </body>
+</html>

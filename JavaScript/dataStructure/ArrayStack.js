@@ -25,6 +25,6 @@ ArrayStack.prototype = {
         return this.array.length;
     },
     toString:function(){
-        return "ArrayStack [array="+this.array+"]";
+        return "ArrayStack (array=["+this.array+"])";
     }
 }

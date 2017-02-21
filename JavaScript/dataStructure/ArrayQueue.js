@@ -25,6 +25,6 @@ ArrayQueue.prototype = {
         return this.array.length;
     },
     toString:function(){
-        return "ArrayQueue [array="+this.array+"]";
+        return "ArrayQueue (array=["+this.array+"])";
     }
 }

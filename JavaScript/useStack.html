@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>stack</title>
+    <title>useStack</title>
     <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
     <script type="text/javascript" src="assert/assert.js"></script>
 
@@ -20,7 +20,7 @@
         var stack = new ArrayStack();
         var remainder;
         while(intNum > 0){
-          remainder = intNum % base;
+          remainder = Math.floor(intNum % base);
           stack.push(remainder);
           intNum = Math.floor(intNum / base);
         }

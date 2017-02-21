@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>queue</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/ArrayQueue.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var queue = new ArrayQueue();
+      info("var queue = new ArrayQueue();", queue.toString());
+      assert(queue.isEmpty(), "queue.isEmpty() == true");
+
+      queue.enqueue('John', 'Jack');
+      info("queue.enqueue('John', 'Jack');", queue.toString());
+      assert(queue.front() == 'John', "queue.front() == 'John'");
+
+      queue.enqueue('Camila');
+      info("queue.enqueue('Camila');", queue.toString());
+      assert(queue.size() == 3, "queue.size() == 3");
+      assert(!queue.isEmpty(), "queue.isEmpty() == false");
+
+      var dequeueEle = queue.dequeue();
+      info("var dequeueEle = queue.dequeue();", queue.toString());
+      assert(dequeueEle == 'John', "dequeueEle == John");
+
+      dequeueEle = queue.dequeue();
+      info("dequeueEle = queue.dequeue();", queue.toString());
+      assert(dequeueEle == 'Jack', "dequeueEle == Jack");
+
+      assert(queue.front() == 'Camila', "queue.front() == 'Camila'");
+      assert(queue.size() == 1, "queue.size() == 1");
+
+      queue.clear();
+      info("queue.clear();", queue.toString());
+      assert(queue.isEmpty(), "queue.isEmpty() == true");
+      assert(queue.size() == 0, "queue.size() == 0");
+    </script>
+  </body>
+</html>
