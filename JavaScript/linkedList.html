@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>linkedList</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/LinkedList.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var list = new LinkedList();
+      info("var list = new LinkedList();", list.toString());
+      assert(list.isEmpty(), "list.isEmpty() == true");
+
+      list.append('John');
+      info("list.append('John');", list.toString());
+
+      list.append('Jack');
+      info("list.append('Jack');", list.toString());
+
+      list.append('Camila');
+      info("list.append('Camila');", list.toString());
+
+      list.insert(1, 'Alice');
+      info("list.insert(1, 'Alice');", list.toString());
+
+      list.insert(3, 'Robert');
+      info("list.insert(3, 'Robert');", list.toString());
+      assert(list.size() == 5, "list.size() == 5");
+
+      list.removeAt(2);
+      info("list.removeAt(2);", list.toString());
+      assert(list.size() == 4, "list.size() == 4");
+
+      list.removeAt(list.size()-1);
+      assert(list.size() == 3, "list.size() == 3");
+
+      info("list.removeAt(list.size()-1);", list.toString());
+      assert(list.indexOf('John') == 0, "list.indexOf('John') == 0");
+      assert(list.indexOf('Alice') == 1, "list.indexOf('Alice') == 1");
+      assert(list.indexOf('Robert') == 2, "list.indexOf('Robert') == 2");
+      assert(list.indexOf('alice') == -1, "list.indexOf('alice') == -1");
+
+      assert(list.remove('Alice'), "list.remove('Alice') == true");
+      info("list.remove('Alice');", list.toString());
+      assert(list.size() == 2, "list.size() == 2");
+
+      assert(!list.remove('alice'), "list.remove('alice') == false");
+      info("list.remove('alice');", list.toString());
+
+      list.clear();
+      info("list.clear();", list.toString());
+      assert(list.isEmpty(), "list.isEmpty() == true");
+      assert(list.size() == 0, "list.size() == 0");
+    </script>
+  </body>
+</html>

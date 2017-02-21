@@ -2,31 +2,31 @@ function PriorityArrayQueue(){
     this.array = [];
 }
 
-function QueueElement(value, priority){
-    this.value = value;
+function QueueItem(element, priority){
+    this.element = element;
     this.priority = priority;
     this.toString = function(){
-        return "QueueElement (value="+this.value+", priority="+this.priority+")";
+        return "QueueItem (element="+this.element+", priority="+this.priority+")";
     }
 }
 
 PriorityArrayQueue.prototype = {
     constructor:PriorityArrayQueue,
-    enqueue:function(value, priority){
-        var element = new QueueElement(value, priority);
+    enqueue:function(element, priority){
+        var item = new QueueItem(element, priority);
         for(var i=0;i<this.array.length;i++){
-            if(element.priority > this.array[i].priority){
-                this.array.splice(i, 0, element);
+            if(item.priority > this.array[i].priority){
+                this.array.splice(i, 0, item);
                 return;
             }
         }
-        this.array.push(element);
+        this.array.push(item);
     },
     dequeue:function(){
-        return this.array.shift().value;
+        return this.array.shift().element;
     },
     front:function(){
-        return this.array[0].value;
+        return this.array[0].element;
     },
     isEmpty:function(){
         return this.array.length == 0;
