@@ -41,8 +41,8 @@ LinkedList.prototype = {
         return this._indexNodeAt(index).element;
     },
     _checkIndex:function(index){
-        if(index < 0 || index > this.length-1){
-            throw new Error("OutOfIndex : index="+index+", length="+this.length);
+        if(index < 0 || index >= this.length){
+            throw new Error("indexOutOfBounds : index="+index+", length="+this.length);
         }
     },
     _indexNodeAt:function(index){
