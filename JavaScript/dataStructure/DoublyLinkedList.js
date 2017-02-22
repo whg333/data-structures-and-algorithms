@@ -1,3 +1,14 @@
+/**
+ * 默认第一个元素是head.next，最后一个元素是tail.prev，
+ * head.next为null和tail.prev为null就代表链表为空;
+ *
+ * 而从head.next开始遍历的话是直到tail就终止，而不是到null才终止，
+ * 因为初始化的时候head和tail是互相指向的;
+ *
+ * 令head未非null的Node目的是为了在insert或者remove第一个元素index==0的时候，
+ * 找出前一个元素previous(即index-1)时的代码足够直观简洁，而不需要特殊处理代码逻辑块
+ * @constructor
+ */
 function DoublyLinkedList(){
     this.head = new DoublyNode(null, null, null);
     this.tail = new DoublyNode(null, null, null);
@@ -77,7 +88,7 @@ DoublyLinkedList.prototype = {
         if(curr == null) return false;
 
         var previous = this.head;
-        for(var i=0;curr!=null;i++){
+        for(var i=0;curr!=this.tail;i++){
             if(curr.element == element){
                 previous.next = curr.next;
                 previous.next.next.prev = previous;
@@ -93,7 +104,7 @@ DoublyLinkedList.prototype = {
         var curr = this.head.next;
         if(curr == null) return -1;
 
-        for(var i=0;curr!=null;i++){
+        for(var i=0;curr!=this.tail;i++){
             if(curr.element == element){
                 return i;
             }
