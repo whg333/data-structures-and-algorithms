@@ -29,15 +29,16 @@
       info("list.insert(3, 'Robert');", list.toString());
       assert(list.size() == 5, "list.size() == 5");
 
-      list.removeAt(2);
-      info("list.removeAt(2);", list.toString());
+      var removeEle = list.removeAt(2);
+      info("var removeEle = list.removeAt(2);", list.toString());
+      assert(removeEle == 'Jack', "removeEle == 'Jack'");
       assert(list.size() == 4, "list.size() == 4");
 
-      list.removeAt(list.size()-1);
-      info("list.removeAt(list.size()-1);", list.toString());
+      removeEle = list.removeAt(list.size()-1);
+      info("removeEle = list.removeAt(list.size()-1);", list.toString());
+      assert(removeEle == 'Camila', "removeEle == 'Camila'");
       assert(list.size() == 3, "list.size() == 3");
 
-      assert(list.indexAt(0) == 'John', "list.indexAt(0) == 'John'");
       assert(list.indexAt(1) == 'Alice', "list.indexAt(1) == 'Alice'");
 
       assert(list.indexOf('John') == 0, "list.indexOf('John') == 0");
@@ -51,6 +52,21 @@
 
       assert(!list.remove('alice'), "list.remove('alice') == false");
       info("list.remove('alice');", list.toString());
+
+      assert(list.indexAt(0) == 'John', "list.indexAt(0) == 'John'");
+      removeEle = list.removeAt(0);
+      info("removeEle = list.removeAt(0);", list.toString());
+      assert(removeEle == 'John', "removeEle == 'John'");
+
+      assert(list.indexAt(0) == 'Robert', "list.indexAt(0) == 'Robert'");
+      removeEle = list.removeAt(0);
+      info("removeEle = list.removeAt(0);", list.toString());
+      assert(removeEle == 'Robert', "removeEle == 'Robert'");
+
+      list.append('John');
+      list.append('Jack');
+      info("list.append('John');", "list.append('Jack');", list.toString());
+      assert(list.size() == 2, "list.size() == 2");
 
       list.clear();
       info("list.clear();", list.toString());

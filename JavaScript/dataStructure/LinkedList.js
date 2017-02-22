@@ -1,5 +1,5 @@
 function LinkedList(){
-    this.header = null;
+    this.header = new Node(null, null);
     this.length = 0;
 }
 
@@ -12,9 +12,9 @@ LinkedList.prototype = {
     constructor:LinkedList,
     append:function(element){
         var newNode = new Node(element, null);
-        var curr = this.header;
+        var curr = this.header.next;
         if(curr == null){
-            this.header = newNode;
+            this.header.next = newNode;
         }else{
             while(curr.next != null){
                 curr = curr.next;
@@ -31,26 +31,35 @@ LinkedList.prototype = {
     },
     removeAt:function(index){
         this._checkIndex(index);
-        var indexPrevious = this._indexNodeAt(index-1);
+        var indexPrevious = index == 0
+            ? this.header
+            : this._indexNodeAt(index-1);
+        indexNode = indexPrevious.next;
         indexPrevious.next = indexPrevious.next.next;
         this.length--;
+        return indexNode.element;
     },
     indexAt:function(index){
         return this._indexNodeAt(index).element;
     },
+    _checkIndex:function(index){
+        if(index < 0 || index > this.length-1){
+            throw new Error("OutOfIndex : index="+index+", length="+this.length);
+        }
+    },
     _indexNodeAt:function(index){
         this._checkIndex(index);
-        var curr = this.header;
+        var curr = this.header.next;
         for(var i=0;i<index;i++){
             curr = curr.next
         }
         return curr;
     },
     remove:function(element){
-        var curr = this.header;
+        var curr = this.header.next;
         if(curr == null) return false;
 
-        var previous = this.header;
+        var previous = this.header.next;
         for(var i=0;curr!=null;i++){
             if(curr.element == element){
                 previous.next = curr.next;
@@ -63,7 +72,7 @@ LinkedList.prototype = {
         return false;
     },
     indexOf:function(element){
-        var curr = this.header;
+        var curr = this.header.next;
         if(curr == null) return -1;
 
         for(var i=0;curr!=null;i++){
@@ -78,7 +87,7 @@ LinkedList.prototype = {
         return this.length == 0;
     },
     clear:function(){
-        this.header = null;
+        this.header.next = null;
         this.length = 0;
     },
     size:function(){
@@ -86,7 +95,7 @@ LinkedList.prototype = {
     },
     toString:function(){
         var eleStr = '';
-        var curr = this.header;
+        var curr = this.header.next;
         if(curr != null){
             eleStr += (curr.element);
             while(curr.next != null){
@@ -96,10 +105,5 @@ LinkedList.prototype = {
             }
         }
         return "LinkedList (elements=["+eleStr+"])";
-    },
-    _checkIndex:function(index){
-        if(index < 0 || index > this.length-1){
-            throw new Error("OutOfIndex : index="+index+", length="+this.length);
-        }
     }
 }
