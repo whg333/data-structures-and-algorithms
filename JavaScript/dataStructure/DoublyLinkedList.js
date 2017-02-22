@@ -1,32 +1,35 @@
-function LinkedList(){
-    this.head = new Node(null, null);
+function DoublyLinkedList(){
+    this.head = new DoublyNode(null, null, null);
+    this.tail = new DoublyNode(null, null, null);
     this.clear();
 }
 
-function Node(element, next){
+function DoublyNode(element, next, prev){
     this.element = element;
     this.next = next;
+    this.prev = prev;
 }
 
-LinkedList.prototype = {
-    constructor:LinkedList,
+DoublyLinkedList.prototype = {
+    constructor:DoublyLinkedList,
     append:function(element){
-        var newNode = new Node(element, null);
-        var curr = this.head.next;
-        if(curr == null){
+        var newNode;
+        if(this.head.next == null){
+            newNode = new DoublyNode(element, this.tail, this.head);
             this.head.next = newNode;
         }else{
-            while(curr.next != null){
-                curr = curr.next;
-            }
-            curr.next = newNode;
+            newNode = new DoublyNode(element, this.tail, this.tail.prev);
+            this.tail.prev.next = newNode;
         }
+        this.tail.prev = newNode;
         this.length++;
     },
     insert:function(index, element){
         this._checkIndex(index);
         var previous = index == 0 ? this.head : this._indexNodeAt(index-1);
-        previous.next = new Node(element, previous.next);
+        var newNode = new DoublyNode(element, previous.next, previous);
+        previous.next.prev = newNode;
+        previous.next = newNode;
         this.length++;
     },
     removeAt:function(index){
@@ -34,6 +37,7 @@ LinkedList.prototype = {
         var previous = index == 0 ? this.head : this._indexNodeAt(index-1);
         var indexNode = previous.next;
         previous.next = previous.next.next;
+        previous.next.prev = previous;
         this.length--;
         return indexNode.element;
     },
@@ -47,9 +51,17 @@ LinkedList.prototype = {
     },
     _indexNodeAt:function(index){
         this._checkIndex(index);
-        var curr = this.head.next;
-        for(var i=0;i<index;i++){
-            curr = curr.next
+        var curr;
+        if(index >= this.size()){
+            curr = this.tail.prev;
+            for(var i=this.size()-1;i>index;i--){
+                curr = curr.prev;
+            }
+        }else{
+            curr = this.head.next;
+            for(var i=0;i<index;i++){
+                curr = curr.next
+            }
         }
         return curr;
     },
@@ -68,6 +80,7 @@ LinkedList.prototype = {
         for(var i=0;curr!=null;i++){
             if(curr.element == element){
                 previous.next = curr.next;
+                previous.next.next.prev = previous;
                 this.length--;
                 return true;
             }
@@ -92,7 +105,8 @@ LinkedList.prototype = {
         return this.length == 0;
     },
     clear:function(){
-        this.head.next = null;
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
         this.length = 0;
     },
     size:function(){
@@ -101,12 +115,12 @@ LinkedList.prototype = {
     toString:function(){
         var eleStr = '';
         var curr = this.head.next;
-        while(curr != null){
+        while(curr != this.tail){
             eleStr += curr.element;
-            if(curr.next == null) break;
+            if(curr.next == this.tail) break;
             eleStr += ', ';
             curr = curr.next;
         }
-        return "LinkedList (elements=["+eleStr+"])";
+        return "DoublyLinkedList (elements=["+eleStr+"])";
     }
 }
