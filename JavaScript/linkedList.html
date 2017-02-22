@@ -34,9 +34,12 @@
       assert(list.size() == 4, "list.size() == 4");
 
       list.removeAt(list.size()-1);
+      info("list.removeAt(list.size()-1);", list.toString());
       assert(list.size() == 3, "list.size() == 3");
 
-      info("list.removeAt(list.size()-1);", list.toString());
+      assert(list.indexAt(0) == 'John', "list.indexAt(0) == 'John'");
+      assert(list.indexAt(1) == 'Alice', "list.indexAt(1) == 'Alice'");
+
       assert(list.indexOf('John') == 0, "list.indexOf('John') == 0");
       assert(list.indexOf('Alice') == 1, "list.indexOf('Alice') == 1");
       assert(list.indexOf('Robert') == 2, "list.indexOf('Robert') == 2");
