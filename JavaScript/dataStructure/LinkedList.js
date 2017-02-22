@@ -1,8 +1,8 @@
 /**
  * 默认第一个元素是head.next，head.next为null就代表链表为空；
  *
- * 令head未非null的Node目的是为了在insert或者remove第一个元素index==0的时候，
- * 找出前一个元素previous(即index-1)时的代码足够直观简洁，而不需要特殊处理代码逻辑块
+ * 令head为非null的Node目的是为了在insert或者remove第一个元素index==0的时候，
+ * 找出前一个元素previous(即索引为index-1值为head)时的代码足够直观简洁，而不需要特殊处理代码逻辑块
  * @constructor
  */
 function LinkedList(){
