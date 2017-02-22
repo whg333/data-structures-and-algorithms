@@ -1,5 +1,5 @@
 function LinkedList(){
-    this.header = new Node(null, null);
+    this.head = new Node(null, null);
     this.length = 0;
 }
 
@@ -12,9 +12,9 @@ LinkedList.prototype = {
     constructor:LinkedList,
     append:function(element){
         var newNode = new Node(element, null);
-        var curr = this.header.next;
+        var curr = this.head.next;
         if(curr == null){
-            this.header.next = newNode;
+            this.head.next = newNode;
         }else{
             while(curr.next != null){
                 curr = curr.next;
@@ -25,15 +25,15 @@ LinkedList.prototype = {
     },
     insert:function(index, element){
         this._checkIndex(index);
-        var indexPrevious = index == 0 ? this.header : this._indexNodeAt(index-1);
-        indexPrevious.next = new Node(element, indexPrevious.next);
+        var previous = index == 0 ? this.head : this._indexNodeAt(index-1);
+        previous.next = new Node(element, previous.next);
         this.length++;
     },
     removeAt:function(index){
         this._checkIndex(index);
-        var indexPrevious = index == 0 ? this.header : this._indexNodeAt(index-1);
-        var indexNode = indexPrevious.next;
-        indexPrevious.next = indexPrevious.next.next;
+        var previous = index == 0 ? this.head : this._indexNodeAt(index-1);
+        var indexNode = previous.next;
+        previous.next = previous.next.next;
         this.length--;
         return indexNode.element;
     },
@@ -47,17 +47,24 @@ LinkedList.prototype = {
     },
     _indexNodeAt:function(index){
         this._checkIndex(index);
-        var curr = this.header.next;
+        var curr = this.head.next;
         for(var i=0;i<index;i++){
             curr = curr.next
         }
         return curr;
     },
     remove:function(element){
-        var curr = this.header.next;
+        //if(this.isEmpty()) return false;
+        //var index = this.indexOf(element);
+        //if(index < 0) return false;
+        //this.removeAt(index);
+        //return true;
+
+        //上面使用indexOf和removeAt需要循环2次，而下面循环只需要1次
+        var curr = this.head.next;
         if(curr == null) return false;
 
-        var previous = this.header;
+        var previous = this.head;
         for(var i=0;curr!=null;i++){
             if(curr.element == element){
                 previous.next = curr.next;
@@ -70,7 +77,7 @@ LinkedList.prototype = {
         return false;
     },
     indexOf:function(element){
-        var curr = this.header.next;
+        var curr = this.head.next;
         if(curr == null) return -1;
 
         for(var i=0;curr!=null;i++){
@@ -85,7 +92,7 @@ LinkedList.prototype = {
         return this.length == 0;
     },
     clear:function(){
-        this.header.next = null;
+        this.head.next = null;
         this.length = 0;
     },
     size:function(){
@@ -93,7 +100,7 @@ LinkedList.prototype = {
     },
     toString:function(){
         var eleStr = '';
-        var curr = this.header.next;
+        var curr = this.head.next;
         while(curr != null){
             eleStr += curr.element;
             if(curr.next != null){
