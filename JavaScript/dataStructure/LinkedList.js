@@ -25,16 +25,14 @@ LinkedList.prototype = {
     },
     insert:function(index, element){
         this._checkIndex(index);
-        var indexPrevious = this._indexNodeAt(index-1);
+        var indexPrevious = index == 0 ? this.header : this._indexNodeAt(index-1);
         indexPrevious.next = new Node(element, indexPrevious.next);
         this.length++;
     },
     removeAt:function(index){
         this._checkIndex(index);
-        var indexPrevious = index == 0
-            ? this.header
-            : this._indexNodeAt(index-1);
-        indexNode = indexPrevious.next;
+        var indexPrevious = index == 0 ? this.header : this._indexNodeAt(index-1);
+        var indexNode = indexPrevious.next;
         indexPrevious.next = indexPrevious.next.next;
         this.length--;
         return indexNode.element;
@@ -59,7 +57,7 @@ LinkedList.prototype = {
         var curr = this.header.next;
         if(curr == null) return false;
 
-        var previous = this.header.next;
+        var previous = this.header;
         for(var i=0;curr!=null;i++){
             if(curr.element == element){
                 previous.next = curr.next;
@@ -96,13 +94,12 @@ LinkedList.prototype = {
     toString:function(){
         var eleStr = '';
         var curr = this.header.next;
-        if(curr != null){
-            eleStr += (curr.element);
-            while(curr.next != null){
+        while(curr != null){
+            eleStr += curr.element;
+            if(curr.next != null){
                 eleStr += ', ';
-                curr = curr.next;
-                eleStr += (curr.element);
             }
+            curr = curr.next;
         }
         return "LinkedList (elements=["+eleStr+"])";
     }

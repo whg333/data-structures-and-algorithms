@@ -64,9 +64,14 @@
       assert(removeEle == 'Robert', "removeEle == 'Robert'");
 
       list.append('John');
-      list.append('Jack');
-      info("list.append('John');", "list.append('Jack');", list.toString());
-      assert(list.size() == 2, "list.size() == 2");
+      info("list.append('John');", list.toString());
+      assert(list.indexAt(0) == 'John', "list.indexAt(0) == 'John'");
+      list.insert(0, 'Jack');
+      info("list.insert(0, 'Jack');", list.toString());
+      assert(list.indexAt(0) == 'Jack', "list.indexAt(0) == 'Jack'");
+      list.insert(list.size()-1, 'Camila');
+      info("list.insert(list.size()-1, 'Camila');", list.toString());
+      assert(list.size() == 3, "list.size() == 3");
 
       list.clear();
       info("list.clear();", list.toString());
