@@ -52,7 +52,7 @@ DoublyLinkedList.prototype = {
     _indexNodeAt:function(index){
         this._checkIndex(index);
         var curr;
-        if(index >= this.size()){
+        if(index >= this.size()/2){
             curr = this.tail.prev;
             for(var i=this.size()-1;i>index;i--){
                 curr = curr.prev;
