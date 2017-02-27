@@ -1,4 +1,9 @@
-function ObjectSet(){
+function ObjectSet(name){
+    if(name){
+        this.name = name;
+    }else{
+        this.name = "ObjectSet";
+    }
     this.obj = {};
     this.length = 0;
 }
@@ -8,14 +13,14 @@ function ObjectSet(){
 
 ObjectSet.prototype = {
     constructor:ObjectSet,
-    addAll:function(){
+    add:function(){
         for(var index in arguments){
             if(arguments.hasOwnProperty(index)){
-                this.add(arguments[index]);
+                this._addElement(arguments[index]);
             }
         }
     },
-    add:function(element){
+    _addElement:function(element){
         if(this.has(element)){
             return false;
         }
@@ -31,7 +36,20 @@ ObjectSet.prototype = {
         this.length--;
         return true;
     },
-    has:function(element){
+    has:function(){
+        if(arguments.length <= 0){
+            return false;
+        }
+        for(var index in arguments){
+            if(arguments.hasOwnProperty(index)){
+                if(!this._hasElement(arguments[index])){
+                    return false;
+                }
+            }
+        }
+        return true;
+    },
+    _hasElement:function(element){
         //return element in this.obj;
         return this.obj.hasOwnProperty(element);
     },
@@ -55,6 +73,44 @@ ObjectSet.prototype = {
         return array;
     },
     toString:function(){
-        return "ObjectSet (values=["+this.values()+"])";
+        return this.name+" (values=["+this.values()+"])";
+    },
+
+    union:function(otherSet){
+        var result = new ObjectSet("union");
+        this.add.apply(result, this.values());
+        this.add.apply(result, otherSet.values());
+        //result.add(this.values());
+        //result.add(otherSet.values());
+        return result;
+    },
+    intersection:function(otherSet){
+        var result = new ObjectSet("intersection");
+        for(var value in otherSet.values()){
+            if(this.has(value)){
+                result.add(value);
+            }
+        }
+        return result;
+    },
+    difference:function(otherSet){
+        var result = new ObjectSet("difference");
+        for(var value in otherSet.values()){
+            if(!this.has(value)){
+                result.add(value);
+            }
+        }
+        return result;
+    },
+    subsetOf:function(otherSet){
+        if(this.size() > otherSet.length){
+            return false;
+        }
+        for(var value in this.values()){
+            if(!otherSet.has(value)){
+                return false;
+            }
+        }
+        return true;
     }
 }

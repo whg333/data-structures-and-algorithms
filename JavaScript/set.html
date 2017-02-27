@@ -13,8 +13,8 @@
       info("var set = new ObjectSet();", set.toString());
       assert(set.isEmpty(), "set.isEmpty() == true");
 
-      set.addAll('John', 'Jack');
-      info("set.addAll('John', 'Jack');", set.toString());
+      set.add('John', 'Jack');
+      info("set.add('John', 'Jack');", set.toString());
       assert(set.size() == 2, "set.size() == 2");
 
       set.add('Camila');
@@ -30,6 +30,7 @@
       info("result = set.remove('Jack');", set.toString());
       assert(result == false, "result == false");
 
+      assert(set.has() == false, "set.has() == false");
       assert(set.has('John') == true, "set.has('John') == true");
       assert(set.has('Jack') == false, "set.has('Jack') == false");
       assert(set.has('name1') == false, "set.has('name1') == false");
@@ -40,6 +41,24 @@
       info("set.clear();", set.toString());
       assert(set.isEmpty(), "set.isEmpty() == true");
       assert(set.size() == 0, "set.size() == 0");
+
+      var setA = new ObjectSet('setA');
+      setA.add(1, 2, 3);
+      info("var setA = new ObjectSet();", "setA.add(1, 2, 3);", setA.toString());
+      assert(setA.size() == 3, "setA.size() == 3");
+      assert(setA.has(3, 1, 2), "setA.has(3, 1, 2)");
+      assert(!setA.has(1, 4), "!setA.has(1, 4)");
+      var setB = new ObjectSet('setB');
+      setB.add(3, 4, 5, 6);
+      info("var setB = new ObjectSet();", "setB.add(3, 4, 5, 6);", setB.toString());
+      assert(setB.size() == 4, "setB.size() == 4");
+      assert(setB.has(3), "setB.has(3)");
+      assert(setB.has(4, 5, 6), "setB.has(4, 5, 6)");
+      assert(!setB.has(1, 2), "!setB.has(1, 2)");
+      var unionAB = setA.union(setB);
+      info("var unionAB = setA.union(setB);", unionAB.toString());
+      assert(unionAB.size() == 6, "unionAB.size() == 6");
+      assert(unionAB.has(1, 2, 3, 4, 5, 6), "unionAB.hasAll(1, 2, 3, 4, 5, 6)");
     </script>
   </body>
 </html>
