@@ -3,7 +3,6 @@ function assert(value, desc) {
 }
 
 function info() {
-  //var argsArray = Array.prototype.slice.call(arguments);转换arguments成数组
   for(var index in arguments){
     appendResult("info", arguments[index]);
     log(arguments[index]);

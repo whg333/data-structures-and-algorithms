@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dictionary</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/ObjectDictionary.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var dictionary = new ObjectDictionary();
+      info("var dictionary = new ObjectDictionary();", dictionary.toString());
+      assert(dictionary.isEmpty(), "dictionary.isEmpty() == true");
+
+      dictionary.put('Gandalf', 'gandalf@emial.com');
+      dictionary.put('John', 'johnsnow@emial.com');
+      dictionary.put('Tyrion', 'tyrion@emial.com');
+      info("dictionary.put('Gandalf', 'gandalf@emial.com');",
+              "dictionary.put('John', 'johnsnow@emial.com');",
+              "dictionary.put('Tyrion', 'tyrion@emial.com');",
+              dictionary.toString());
+      assert(dictionary.size() == 3, "dictionary.size() == 3");
+
+      var opResult = dictionary.get('Tyrion');
+      info("var opResult = dictionary.get('Tyrion');", dictionary.toString());
+      assert(opResult == 'tyrion@emial.com', "opResult == 'tyrion@emial.com'");
+      opResult = dictionary.put('Tyrion', 'tyrion2@emial.com');
+      info("opResult = dictionary.put('Tyrion', 'tyrion2@emial.com');", dictionary.toString());
+      assert(opResult == 'tyrion@emial.com', "opResult == 'tyrion@emial.com'");
+      opResult = dictionary.get('Tyrion');
+      info("opResult = dictionary.get('Tyrion');", dictionary.toString());
+      assert(opResult == 'tyrion2@emial.com', "opResult == 'tyrion2@emial.com'");
+
+      opResult = dictionary.has('John');
+      info("var opResult = dictionary.has('John');", dictionary.toString());
+      assert(opResult == true, "opResult == true");
+      opResult = dictionary.remove('John');
+      info("opResult = dictionary.remove('John');", dictionary.toString());
+      assert(opResult == 'johnsnow@emial.com', "opResult == 'johnsnow@emial.com'");
+      opResult = dictionary.has('John');
+      info("opResult = dictionary.has('John');", dictionary.toString());
+      assert(opResult == false, "opResult == false");
+
+      opResult = dictionary.get('name1');
+      info("opResult = dictionary.get('name1');", dictionary.toString());
+      assert(opResult == undefined, "opResult == undefined");
+
+      opResult = dictionary.remove('name1');
+      info("opResult = dictionary.remove('name1');", dictionary.toString());
+      assert(opResult == undefined, "opResult == undefined");
+      assert(dictionary.size() == 2, "dictionary.size() == 2");
+
+      dictionary.clear();
+      info("dictionary.clear();", dictionary.toString());
+      assert(dictionary.isEmpty(), "dictionary.isEmpty() == true");
+      assert(dictionary.size() == 0, "dictionary.size() == 0");
+    </script>
+  </body>
+</html>
