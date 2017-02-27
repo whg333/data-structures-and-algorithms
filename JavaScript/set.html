@@ -13,14 +13,20 @@
       info("var set = new ObjectSet();", set.toString());
       assert(set.isEmpty(), "set.isEmpty() == true");
 
-      set.add('John', 'Jack');
+      var addResult = set.add('John', 'Jack');
       info("set.add('John', 'Jack');", set.toString());
+      assert(addResult == true, "addResult == true");
       assert(set.size() == 2, "set.size() == 2");
 
-      set.add('Camila');
-      info("set.add('Camila');", set.toString());
+      addResult = set.add('Camila');
+      info("var addResult = set.add('Camila');", set.toString());
+      assert(addResult == true, "addResult == true");
       assert(set.size() == 3, "set.size() == 3");
       assert(!set.isEmpty(), "set.isEmpty() == false");
+
+      addResult = set.add('Camila', 'John');
+      info("addResult = set.add('Camila', 'John');", set.toString());
+      assert(addResult == false, "addResult == false");
 
       var result = set.remove('Jack');
       info("var result = set.remove('Jack');", set.toString());

@@ -14,11 +14,19 @@ function ObjectSet(name){
 ObjectSet.prototype = {
     constructor:ObjectSet,
     add:function(){
+        if(arguments.length == 1){
+            return this._addElement(arguments[0]);
+        }
+
+        var result = false;
         for(var index in arguments){
             if(arguments.hasOwnProperty(index)){
-                this._addElement(arguments[index]);
+                if(this._addElement(arguments[index])){
+                    result = true;
+                }
             }
         }
+        return result;
     },
     _addElement:function(element){
         if(this.has(element)){
