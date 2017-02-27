@@ -6,7 +6,9 @@ ArrayQueue.prototype = {
     constructor:ArrayQueue,
     enqueue:function(){
         for(var index in arguments){
-            this.array.push(arguments[index]);
+            if(arguments.hasOwnProperty(index)) {
+                this.array.push(arguments[index]);
+            }
         }
     },
     dequeue:function(){
@@ -18,11 +20,11 @@ ArrayQueue.prototype = {
     isEmpty:function(){
         return this.array.length == 0;
     },
-    clear:function(){
-        this.array = [];
-    },
     size:function(){
         return this.array.length;
+    },
+    clear:function(){
+        this.array = [];
     },
     toString:function(){
         return "ArrayQueue (array=["+this.array+"])";

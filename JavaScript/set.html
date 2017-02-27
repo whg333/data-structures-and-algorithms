@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>set</title>
+    <link rel="stylesheet" type="text/css" href="assert/assert.css"/>
+    <script type="text/javascript" src="assert/assert.js"></script>
+
+    <script type="text/javascript" src="dataStructure/ObjectSet.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var set = new ObjectSet();
+      info("var set = new ObjectSet();", set.toString());
+      assert(set.isEmpty(), "set.isEmpty() == true");
+
+      set.addAll('John', 'Jack');
+      info("set.addAll('John', 'Jack');", set.toString());
+      assert(set.size() == 2, "set.size() == 2");
+
+      set.add('Camila');
+      info("set.add('Camila');", set.toString());
+      assert(set.size() == 3, "set.size() == 3");
+      assert(!set.isEmpty(), "set.isEmpty() == false");
+
+      var result = set.remove('Jack');
+      info("var result = set.remove('Jack');", set.toString());
+      assert(result == true, "result == true");
+
+      result = set.remove('Jack');
+      info("result = set.remove('Jack');", set.toString());
+      assert(result == false, "result == false");
+
+      assert(set.has('John') == true, "set.has('John') == true");
+      assert(set.has('Jack') == false, "set.has('Jack') == false");
+      assert(set.has('name1') == false, "set.has('name1') == false");
+      assert(set.has('Camila') == true, "set.has('Camila') == true");
+      assert(set.size() == 2, "set.size() == 2");
+
+      set.clear();
+      info("set.clear();", set.toString());
+      assert(set.isEmpty(), "set.isEmpty() == true");
+      assert(set.size() == 0, "set.size() == 0");
+    </script>
+  </body>
+</html>

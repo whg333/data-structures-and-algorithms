@@ -31,11 +31,11 @@ PriorityArrayQueue.prototype = {
     isEmpty:function(){
         return this.array.length == 0;
     },
-    clear:function(){
-        this.array = [];
-    },
     size:function(){
         return this.array.length;
+    },
+    clear:function(){
+        this.array = [];
     },
     toString:function(){
         return "PriorityArrayQueue (array=["+this.array+"])";

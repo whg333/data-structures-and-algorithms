@@ -98,12 +98,12 @@ LinkedList.prototype = {
     isEmpty:function(){
         return this.length == 0;
     },
+    size:function(){
+        return this.length;
+    },
     clear:function(){
         this.head.next = null;
         this.length = 0;
-    },
-    size:function(){
-        return this.length;
     },
     toString:function(){
         var eleStr = '';

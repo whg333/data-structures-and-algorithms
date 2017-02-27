@@ -115,13 +115,13 @@ DoublyLinkedList.prototype = {
     isEmpty:function(){
         return this.length == 0;
     },
+    size:function(){
+        return this.length;
+    },
     clear:function(){
         this.head.next = this.tail;
         this.tail.prev = this.head;
         this.length = 0;
-    },
-    size:function(){
-        return this.length;
     },
     toString:function(){
         var eleStr = '';

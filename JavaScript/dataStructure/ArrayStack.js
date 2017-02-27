@@ -6,7 +6,9 @@ ArrayStack.prototype = {
     constructor:ArrayStack,
     push:function(){
         for(var index in arguments){
-            this.array.push(arguments[index]);
+            if(arguments.hasOwnProperty(index)) {
+                this.array.push(arguments[index]);
+            }
         }
     },
     pop:function(){
@@ -18,11 +20,11 @@ ArrayStack.prototype = {
     isEmpty:function(){
         return this.array.length == 0;
     },
-    clear:function(){
-        this.array = [];
-    },
     size:function(){
         return this.array.length;
+    },
+    clear:function(){
+        this.array = [];
     },
     toString:function(){
         return "ArrayStack (array=["+this.array+"])";
