@@ -86,36 +86,41 @@ ObjectSet.prototype = {
 
     union:function(otherSet){
         var result = new ObjectSet("union");
-        this.add.apply(result, this.values());
-        this.add.apply(result, otherSet.values());
         //result.add(this.values());
         //result.add(otherSet.values());
+        //由于values返回的是数组，所以使用apply来调用add；
+        //直接调用add的话，会把整个values数组当做1个参数而不是多个参数
+        this.add.apply(result, this.values());
+        this.add.apply(result, otherSet.values());
         return result;
     },
     intersection:function(otherSet){
         var result = new ObjectSet("intersection");
-        for(var value in otherSet.values()){
-            if(this.has(value)){
-                result.add(value);
+        var values = this.values();
+        for(var index in values){
+            if(otherSet.has(values[index])){
+                result.add(values[index]);
             }
         }
         return result;
     },
     difference:function(otherSet){
         var result = new ObjectSet("difference");
-        for(var value in otherSet.values()){
-            if(!this.has(value)){
-                result.add(value);
+        var values = this.values();
+        for(var index in values){
+            if(!otherSet.has(values[index])){
+                result.add(values[index]);
             }
         }
         return result;
     },
-    subsetOf:function(otherSet){
+    isSubsetOf:function(otherSet){
         if(this.size() > otherSet.length){
             return false;
         }
-        for(var value in this.values()){
-            if(!otherSet.has(value)){
+        var values = this.values();
+        for(var index in values){
+            if(!otherSet.has(values[index])){
                 return false;
             }
         }

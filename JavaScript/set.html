@@ -28,6 +28,11 @@
       info("addResult = set.add('Camila', 'John');", set.toString());
       assert(addResult == false, "addResult == false");
 
+      addResult = set.add();
+      info("addResult = set.add();", set.toString());
+      assert(addResult == false, "addResult == false");
+      assert(set.size() == 3, "set.size() == 3");
+
       var result = set.remove('Jack');
       info("var result = set.remove('Jack');", set.toString());
       assert(result == true, "result == true");
@@ -54,6 +59,7 @@
       assert(setA.size() == 3, "setA.size() == 3");
       assert(setA.has(3, 1, 2), "setA.has(3, 1, 2)");
       assert(!setA.has(1, 4), "!setA.has(1, 4)");
+
       var setB = new ObjectSet('setB');
       setB.add(3, 4, 5, 6);
       info("var setB = new ObjectSet();", "setB.add(3, 4, 5, 6);", setB.toString());
@@ -61,10 +67,34 @@
       assert(setB.has(3), "setB.has(3)");
       assert(setB.has(4, 5, 6), "setB.has(4, 5, 6)");
       assert(!setB.has(1, 2), "!setB.has(1, 2)");
+
       var unionAB = setA.union(setB);
       info("var unionAB = setA.union(setB);", unionAB.toString());
       assert(unionAB.size() == 6, "unionAB.size() == 6");
-      assert(unionAB.has(1, 2, 3, 4, 5, 6), "unionAB.hasAll(1, 2, 3, 4, 5, 6)");
+      assert(unionAB.has(1, 2, 3, 4, 5, 6), "unionAB.has(1, 2, 3, 4, 5, 6)");
+
+      setA.clear();
+      setA.add(1, 2, 3);
+      info("setA.clear();", "setA.add(1, 2, 3);", setA.toString());
+      setB.clear();
+      setB.add(2, 3, 4);
+      info("setB.clear();", "setB.add(2, 3, 4);", setB.toString());
+      var intersectionAB = setA.intersection(setB);
+      info("var intersectionAB = setA.intersection(setB);", intersectionAB.toString());
+      assert(intersectionAB.size() == 2, "intersectionAB.size() == 2");
+      assert(intersectionAB.has(2, 3), "intersectionAB.has(2, 3)");
+
+      var differenceAB = setA.difference(setB);
+      info("var differenceAB = setA.difference(setB);", differenceAB.toString());
+      assert(differenceAB.size() == 1, "differenceAB.size() == 1");
+      assert(differenceAB.has(1), "differenceAB.has(1)");
+
+      var setC = new ObjectSet('setC');
+      setC.add(1, 2);
+      info("var setC = new ObjectSet('setC');", "setC.add(1, 2);",
+              setC.toString(), setA.toString(), setB.toString());
+      assert(setC.isSubsetOf(setA) == true, "setC.isSubsetOf(setA) == true");
+      assert(setC.isSubsetOf(setB) == false, "setC.isSubsetOf(setA) == false");
     </script>
   </body>
 </html>
