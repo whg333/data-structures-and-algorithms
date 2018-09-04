@@ -1,6 +1,6 @@
 package com.whg.dataStructure;
 
-public interface IList<E> extends ICollection<E> {
+public interface List<E> extends Collection<E> {
 	
 	default boolean add(E e) {
 		add(size(), e);

@@ -1,6 +1,6 @@
 package com.whg.dataStructure;
 
-public interface ICollection<E> {
+public interface Collection<E> {
 	
 	boolean add(E e);
 	

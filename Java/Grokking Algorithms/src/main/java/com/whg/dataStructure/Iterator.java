@@ -1,6 +1,6 @@
 package com.whg.dataStructure;
 
-public interface IIterator<E> {
+public interface Iterator<E> {
 
 	boolean hasNext();
 	
