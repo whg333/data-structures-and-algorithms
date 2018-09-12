@@ -1,20 +1,20 @@
 package com.whg.dataStructure;
 
-public interface Stack<E> extends List<E> {
+public interface Queue<E> extends List<E> {
 
     @SuppressWarnings("unchecked")
-    default void push(E... elements) {
+    default void offer(E... elements) {
         for (E e : elements) {
             addLast(e);
         }
     }
 
-    default E pop() {
-        return removeLast();
+    default E poll() {
+        return removeFirst();
     }
 
     default E peek() {
-        return getLast();
+        return getFirst();
     }
 
 }

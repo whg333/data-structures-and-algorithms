@@ -17,11 +17,11 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[])new Object[capacity];
+        array = (E[]) new Object[capacity];
     }
 
     @Override
-    public void add(int index, E e) {
+    public boolean add(int index, E e) {
         rangeCheckforAdd(index);
         if (size + 1 > array.length) {
             array = Arrays.copyOf(array, array.length + (array.length >> 1));
@@ -31,6 +31,7 @@ public class ArrayList<E> implements List<E> {
         }
         array[index] = e;
         size++;
+        return true;
     }
 
     private void rangeCheckforAdd(int index) {
