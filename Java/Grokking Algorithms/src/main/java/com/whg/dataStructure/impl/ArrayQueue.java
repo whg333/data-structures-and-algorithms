@@ -6,10 +6,10 @@ import com.whg.dataStructure.Queue;
 
 public class ArrayQueue<E> extends ArrayList<E> implements Queue<E> {
 
-    private static final int CAPACITY = 8;
+    private static final int CAPACITY = 2;
 
     public ArrayQueue() {
-        super(CAPACITY);
+        this(CAPACITY);
     }
 
     public ArrayQueue(int capacity) {

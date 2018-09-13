@@ -2,16 +2,25 @@ package com.whg.dataStructure;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.impl.ArrayQueue;
 import com.whg.dataStructure.impl.ArrayStack;
 
-public class AllTest {
+public class StackTest {
+
+    @Before
+    public void before() {
+        System.out.println("StackTest before");
+    }
 
     @Test
-    public void testStack() {
-        Stack<Integer> stack = new ArrayStack<>();
+    public void test() {
+        testStack(new ArrayStack<>());
+    }
+
+    private void testStack(Stack<Integer> stack) {
         System.out.println(stack);
         assertTrue(stack.isEmpty());
 
@@ -52,36 +61,9 @@ public class AllTest {
         assertTrue(!itr.hasNext());
     }
 
-    @Test
-    public void testQueue() {
-        ArrayQueue<String> queue = new ArrayQueue<>();
-        System.out.println(queue);
-        assertTrue(queue.isEmpty());
-
-        queue.offer("John", "Jack");
-        System.out.println(queue);
-        assertTrue(queue.peek().equals("John"));
-
-        queue.offer("Camila");
-        System.out.println(queue);
-        assertTrue(queue.size() == 3);
-        assertTrue(!queue.isEmpty());
-
-        String dequeueEle = queue.poll();
-        System.out.println(queue);
-        assertTrue(dequeueEle.equals("John"));
-
-        dequeueEle = queue.poll();
-        System.out.println(queue);
-        assertTrue(dequeueEle.equals("Jack"));
-
-        assertTrue(queue.peek().equals("Camila"));
-        assertTrue(queue.size() == 1);
-
-        queue.clear();
-        System.out.println(queue);
-        assertTrue(queue.isEmpty());
-        assertTrue(queue.size() == 0);
+    @After
+    public void after() {
+        System.out.println("StackTest after");
     }
 
 }

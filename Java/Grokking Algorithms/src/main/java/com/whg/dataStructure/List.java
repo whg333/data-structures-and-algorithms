@@ -1,6 +1,5 @@
 package com.whg.dataStructure;
 
-import java.util.EmptyStackException;
 import java.util.Objects;
 
 public interface List<E> extends Collection<E> {
@@ -30,14 +29,14 @@ public interface List<E> extends Collection<E> {
 
     default E removeFirst() {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            throw new EmptyCollectionException();
         }
         return remove(0);
     }
 
     default E removeLast() {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            throw new EmptyCollectionException();
         }
         return remove(size() - 1);
     }
@@ -73,14 +72,14 @@ public interface List<E> extends Collection<E> {
 
     default E getFirst() {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            throw new EmptyCollectionException();
         }
         return get(0);
     }
 
     default E getLast() {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            throw new EmptyCollectionException();
         }
         return get(size() - 1);
     }

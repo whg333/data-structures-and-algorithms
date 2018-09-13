@@ -7,7 +7,7 @@ import com.whg.dataStructure.List;
 
 public class ArrayList<E> implements List<E> {
 
-    private static final int CAPACITY = 16;
+    private static final int CAPACITY = 2;
 
     protected E[] array;
     protected int size;
@@ -18,7 +18,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[]) new Object[capacity];
+        array = (E[])new Object[capacity];
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ArrayList<E> implements List<E> {
 
     private void rangeCheck(int index) {
         if (index < 0 || index >= size) {
-            throw new ArrayIndexOutOfBoundsException(outOfBoundsMsg(index));
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }
 
@@ -95,7 +95,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E[] toArray() {
-        return Arrays.copyOf(array, array.length);
+        return Arrays.copyOf(array, size);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class ArrayList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return index < size - 1;
+            return index <= size - 1;
         }
 
         @Override

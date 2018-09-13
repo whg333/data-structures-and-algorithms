@@ -1,5 +1,7 @@
 package com.whg.dataStructure.impl;
 
+import java.util.Arrays;
+
 import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
 
@@ -9,21 +11,20 @@ public class LinkedList<E> implements List<E> {
     protected int size;
 
     public LinkedList() {
-        head = new Node<>(null, null);
+        head = new Node<>(null, null, null);
     }
 
     @Override
     public boolean add(int index, E e) {
         rangeCheckforAdd(index);
-        head.next = new Node<>(e, head);
+        Node<E> prevNode = index == 0 ? head : getNode(index - 1);
+        Node<E> newNode = new Node<>(e, prevNode, prevNode.next);
+        if (prevNode.next != null) {
+            prevNode.next.prev = newNode;
+        }
+        prevNode.next = newNode;
         size++;
         return true;
-    }
-
-    private void rangeCheckforAdd(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-        }
     }
 
     @Override
@@ -62,6 +63,12 @@ public class LinkedList<E> implements List<E> {
         throw new IllegalArgumentException("Can not found index=" + index);
     }
 
+    private void rangeCheckforAdd(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
+    }
+
     private void rangeCheck(int index) {
         if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException(outOfBoundsMsg(index));
@@ -86,10 +93,15 @@ public class LinkedList<E> implements List<E> {
         return size;
     }
 
+    @Override
+    public String toString() {
+        return "LinkedList [data=" + Arrays.toString(toArray()) + ", size=" + size + "]";
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[]) new Object[size];
+        E[] array = (E[])new Object[size];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
@@ -104,18 +116,17 @@ public class LinkedList<E> implements List<E> {
 
     private class Itr implements Iterator<E> {
 
-        Node<E> currNode = head.next;
+        Node<E> currNode = head;
 
         @Override
         public boolean hasNext() {
-            return currNode != null;
+            return currNode.next != null;
         }
 
         @Override
         public E next() {
-            E curr = currNode.value;
             currNode = currNode.next;
-            return curr;
+            return currNode.value;
         }
 
     }
@@ -125,9 +136,10 @@ public class LinkedList<E> implements List<E> {
         Node<E> prev;
         Node<E> next;
 
-        public Node(E value, Node<E> prev) {
+        public Node(E value, Node<E> prev, Node<E> next) {
             this.value = value;
             this.prev = prev;
+            this.next = next;
         }
 
     }
