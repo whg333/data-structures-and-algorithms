@@ -2,6 +2,7 @@ package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
 
+import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
 
 public class ArrayList<E> implements List<E> {
@@ -42,8 +43,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        rangeCheck(index);
-        E old = array[index];
+        E old = get(index);
         int numMoved = size - index - 1;
         if (numMoved > 0) {
             System.arraycopy(array, index + 1, array, index, numMoved);
@@ -53,17 +53,16 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public E get(int index) {
-        rangeCheck(index);
-        return array[index];
+    public E set(int index, E e) {
+        E old = get(index);
+        array[index] = e;
+        return old;
     }
 
     @Override
-    public E set(int index, E e) {
+    public E get(int index) {
         rangeCheck(index);
-        E old = array[index];
-        array[index] = e;
-        return old;
+        return array[index];
     }
 
     private void rangeCheck(int index) {
@@ -92,6 +91,32 @@ public class ArrayList<E> implements List<E> {
     @Override
     public String toString() {
         return "ArrayList [array=" + Arrays.toString(array) + ", size=" + size + "]";
+    }
+
+    @Override
+    public E[] toArray() {
+        return Arrays.copyOf(array, array.length);
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<E> {
+
+        int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < size - 1;
+        }
+
+        @Override
+        public E next() {
+            return get(index++);
+        }
+
     }
 
 }

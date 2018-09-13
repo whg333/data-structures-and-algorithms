@@ -51,9 +51,6 @@ public interface List<E> extends Collection<E> {
 
     default int indexOf(E e) {
         Objects.requireNonNull(e);
-        if (isEmpty()) {
-            return -1;
-        }
         int size = size();
         for (int i = 0; i < size; i++) {
             if (e.equals(get(i))) {
@@ -65,9 +62,6 @@ public interface List<E> extends Collection<E> {
 
     default int lastIndexOf(E e) {
         Objects.requireNonNull(e);
-        if (isEmpty()) {
-            return -1;
-        }
         int lastIndex = size() - 1;
         for (int i = lastIndex; i >= 0; i--) {
             if (e.equals(get(i))) {
@@ -94,5 +88,7 @@ public interface List<E> extends Collection<E> {
     E get(int index);
 
     E set(int index, E e);
+
+    E[] toArray();
 
 }

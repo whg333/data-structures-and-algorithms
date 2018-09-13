@@ -32,13 +32,24 @@ public class AllTest {
         System.out.println(stack);
         assertTrue(popEle == 11);
 
+        Iterator<Integer> itr = stack.iterator();
+        assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 8);
+        assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 5);
+        assertTrue(!itr.hasNext());
+
         assertTrue(stack.peek() == 8);
         assertTrue(stack.size() == 2);
+        itr = stack.iterator();
+        assertTrue(itr.hasNext());
 
         stack.clear();
         System.out.println(stack);
         assertTrue(stack.isEmpty());
         assertTrue(stack.size() == 0);
+        itr = stack.iterator();
+        assertTrue(!itr.hasNext());
     }
 
     @Test
