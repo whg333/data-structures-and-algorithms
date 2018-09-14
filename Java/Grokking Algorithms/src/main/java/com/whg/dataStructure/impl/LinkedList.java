@@ -54,10 +54,11 @@ public class LinkedList<E> implements List<E> {
 
     private Node<E> getNode(int index) {
         rangeCheck(index);
-        Node<E> curr = head.next;
-        for (int i = 0; curr != null; curr = curr.next, i++) {
+        Iterator<Node<E>> itrNode = iteratorNode();
+        for (int i = 0; itrNode.hasNext(); i++) {
+            Node<E> next = itrNode.next();
             if (i == index) {
-                return curr;
+                return next;
             }
         }
         throw new IllegalArgumentException("Can not found index=" + index);
@@ -101,7 +102,7 @@ public class LinkedList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[])new Object[size];
+        E[] array = (E[]) new Object[size];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
@@ -116,6 +117,26 @@ public class LinkedList<E> implements List<E> {
 
     private class Itr implements Iterator<E> {
 
+        ItrNode itrNode = new ItrNode();
+
+        @Override
+        public boolean hasNext() {
+            return itrNode.hasNext();
+        }
+
+        @Override
+        public E next() {
+            return itrNode.next().value;
+        }
+
+    }
+
+    private Iterator<Node<E>> iteratorNode() {
+        return new ItrNode();
+    }
+
+    private class ItrNode implements Iterator<Node<E>> {
+
         Node<E> currNode = head;
 
         @Override
@@ -124,9 +145,9 @@ public class LinkedList<E> implements List<E> {
         }
 
         @Override
-        public E next() {
+        public Node<E> next() {
             currNode = currNode.next;
-            return currNode.value;
+            return currNode;
         }
 
     }
