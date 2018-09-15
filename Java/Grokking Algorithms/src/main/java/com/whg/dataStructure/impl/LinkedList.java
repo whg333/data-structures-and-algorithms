@@ -1,6 +1,7 @@
 package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
@@ -29,19 +30,16 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        Node<E> oldNode = getNode(index);
-        oldNode.prev.next = oldNode.next;
+        rangeCheck(index);
+        Node<E> prevNode = index == 0 ? head : getNode(index - 1);
+        Node<E> oldNode = prevNode.next;
         if (oldNode.next != null) {
-            oldNode.next.prev = oldNode.prev;
-            oldNode.next = null;
+            oldNode.next.prev = prevNode;
         }
+        prevNode.next = oldNode.next;
+        oldNode.clear();
         --size;
         return oldNode.value;
-    }
-
-    @Override
-    public E get(int index) {
-        return getNode(index).value;
     }
 
     @Override
@@ -50,6 +48,11 @@ public class LinkedList<E> implements List<E> {
         E old = oldNode.value;
         oldNode.value = e;
         return old;
+    }
+    
+    @Override
+    public E get(int index) {
+        return getNode(index).value;
     }
 
     private Node<E> getNode(int index) {
@@ -83,8 +86,8 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void clear() {
         if (head.next != null) {
-            head.next.prev = null;
-            head.next = null;
+            head.next.clear();
+            head.next = null; // clear to let GC do its work
         }
         size = 0;
     }
@@ -109,6 +112,20 @@ public class LinkedList<E> implements List<E> {
         }
         return array;
     }
+    
+    @Override
+    public int indexOf(E e) {
+        Objects.requireNonNull(e);
+        Iterator<E> itr = iterator();
+        for (int i = 0; itr.hasNext(); i++) {
+            if (e.equals(itr.next())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    //TODO Override lastIndexOf need tail Node
 
     @Override
     public Iterator<E> iterator() {
@@ -161,6 +178,12 @@ public class LinkedList<E> implements List<E> {
             this.value = value;
             this.prev = prev;
             this.next = next;
+        }
+        
+        // clear to let GC do its work
+        void clear(){
+            prev = null;
+            next = null;
         }
 
     }
