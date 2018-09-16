@@ -18,7 +18,7 @@ public class ListTest {
     @Before
     public void before() {
         System.out.println("ListTest before");
-        list = new ArrayList<>();
+        list = new LinkedList<>();
     }
 
     @Test
@@ -117,6 +117,7 @@ public class ListTest {
         System.out.println(list);
         list.remove(Integer.valueOf(6));
         System.out.println(list);
+        assertTrue(list.lastIndexOf(5) == 5);
         assertTrue(list.size() == 6);
         assertTrue(Arrays.equals(list.toArray(), new Integer[] {0, 1, 2, 3, 4, 5}));
 

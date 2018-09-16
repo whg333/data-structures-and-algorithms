@@ -9,21 +9,26 @@ import com.whg.dataStructure.List;
 public class LinkedList<E> implements List<E> {
 
     protected Node<E> head;
+    protected Node<E> tail;
     protected int size;
 
     public LinkedList() {
         head = new Node<>(null, null, null);
+        tail = new Node<>(null, null, null);
     }
 
     @Override
     public boolean add(int index, E e) {
         rangeCheckforAdd(index);
-        Node<E> prevNode = index == 0 ? head : getNode(index - 1);
+        Node<E> prevNode = isHead(index) ? head : getNode(index - 1);
         Node<E> newNode = new Node<>(e, prevNode, prevNode.next);
         if (prevNode.next != null) {
             prevNode.next.prev = newNode;
         }
         prevNode.next = newNode;
+        if(isTail(index)){
+            tail.prev = newNode;
+        }
         size++;
         return true;
     }
@@ -31,15 +36,27 @@ public class LinkedList<E> implements List<E> {
     @Override
     public E remove(int index) {
         rangeCheck(index);
-        Node<E> prevNode = index == 0 ? head : getNode(index - 1);
+        Node<E> prevNode = isHead(index) ? head : getNode(index - 1);
         Node<E> oldNode = prevNode.next;
+        E value = oldNode.value;
         if (oldNode.next != null) {
             oldNode.next.prev = prevNode;
         }
         prevNode.next = oldNode.next;
+        if(isTail(index+1)){
+            tail.prev = oldNode.prev;
+        }
         oldNode.clear();
         --size;
-        return oldNode.value;
+        return value;
+    }
+    
+    private boolean isHead(int index){
+        return index == 0;
+    }
+    
+    private boolean isTail(int index){
+        return index == size;
     }
 
     @Override
@@ -125,7 +142,17 @@ public class LinkedList<E> implements List<E> {
         return -1;
     }
     
-    //TODO Override lastIndexOf need tail Node
+    @Override
+    public int lastIndexOf(E e) {
+        Objects.requireNonNull(e);
+        Iterator<E> reverseItr = reverseIterator();
+        for (int i = size-1; reverseItr.hasNext(); i--) {
+            if (e.equals(reverseItr.next())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public Iterator<E> iterator() {
@@ -168,6 +195,47 @@ public class LinkedList<E> implements List<E> {
         }
 
     }
+    
+    public Iterator<E> reverseIterator() {
+        return new ReverseItr();
+    }
+    
+    private class ReverseItr implements Iterator<E> {
+
+        ReverseItrNode reverseItrNode = new ReverseItrNode();
+
+        @Override
+        public boolean hasNext() {
+            return reverseItrNode.hasNext();
+        }
+
+        @Override
+        public E next() {
+            return reverseItrNode.next().value;
+        }
+
+    }
+    
+    private Iterator<Node<E>> ReverseIteratorNode() {
+        return new ReverseItrNode();
+    } 
+    
+    private class ReverseItrNode implements Iterator<Node<E>> {
+
+        Node<E> currNode = tail;
+
+        @Override
+        public boolean hasNext() {
+            return currNode.prev != null;
+        }
+
+        @Override
+        public Node<E> next() {
+            currNode = currNode.prev;
+            return currNode;
+        }
+
+    }
 
     private static class Node<E> {
         E value;
@@ -182,6 +250,7 @@ public class LinkedList<E> implements List<E> {
         
         // clear to let GC do its work
         void clear(){
+            value = null;
             prev = null;
             next = null;
         }
