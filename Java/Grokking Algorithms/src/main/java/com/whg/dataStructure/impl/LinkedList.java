@@ -26,7 +26,7 @@ public class LinkedList<E> implements List<E> {
             prevNode.next.prev = newNode;
         }
         prevNode.next = newNode;
-        if(isTail(index)){
+        if (isTail(index)) {
             tail.prev = newNode;
         }
         size++;
@@ -43,19 +43,19 @@ public class LinkedList<E> implements List<E> {
             oldNode.next.prev = prevNode;
         }
         prevNode.next = oldNode.next;
-        if(isTail(index+1)){
+        if (isTail(index + 1)) {
             tail.prev = oldNode.prev;
         }
         oldNode.clear();
         --size;
         return value;
     }
-    
-    private boolean isHead(int index){
+
+    private boolean isHead(int index) {
         return index == 0;
     }
-    
-    private boolean isTail(int index){
+
+    private boolean isTail(int index) {
         return index == size;
     }
 
@@ -66,7 +66,7 @@ public class LinkedList<E> implements List<E> {
         oldNode.value = e;
         return old;
     }
-    
+
     @Override
     public E get(int index) {
         return getNode(index).value;
@@ -102,10 +102,12 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public void clear() {
-        if (head.next != null) {
-            head.next.clear();
-            head.next = null; // clear to let GC do its work
+        Iterator<Node<E>> itrNode = iteratorNode();
+        while (itrNode.hasNext()) {
+            itrNode.next().clear();
         }
+        head.clear();
+        tail.clear();
         size = 0;
     }
 
@@ -129,7 +131,7 @@ public class LinkedList<E> implements List<E> {
         }
         return array;
     }
-    
+
     @Override
     public int indexOf(E e) {
         Objects.requireNonNull(e);
@@ -141,12 +143,12 @@ public class LinkedList<E> implements List<E> {
         }
         return -1;
     }
-    
+
     @Override
     public int lastIndexOf(E e) {
         Objects.requireNonNull(e);
         Iterator<E> reverseItr = reverseIterator();
-        for (int i = size-1; reverseItr.hasNext(); i--) {
+        for (int i = size - 1; reverseItr.hasNext(); i--) {
             if (e.equals(reverseItr.next())) {
                 return i;
             }
@@ -195,11 +197,11 @@ public class LinkedList<E> implements List<E> {
         }
 
     }
-    
+
     public Iterator<E> reverseIterator() {
         return new ReverseItr();
     }
-    
+
     private class ReverseItr implements Iterator<E> {
 
         ReverseItrNode reverseItrNode = new ReverseItrNode();
@@ -215,11 +217,11 @@ public class LinkedList<E> implements List<E> {
         }
 
     }
-    
+
     private Iterator<Node<E>> ReverseIteratorNode() {
         return new ReverseItrNode();
-    } 
-    
+    }
+
     private class ReverseItrNode implements Iterator<Node<E>> {
 
         Node<E> currNode = tail;
@@ -247,9 +249,9 @@ public class LinkedList<E> implements List<E> {
             this.prev = prev;
             this.next = next;
         }
-        
+
         // clear to let GC do its work
-        void clear(){
+        void clear() {
             value = null;
             prev = null;
             next = null;
