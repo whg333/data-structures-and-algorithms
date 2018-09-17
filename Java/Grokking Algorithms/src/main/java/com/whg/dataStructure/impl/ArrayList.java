@@ -12,13 +12,18 @@ public class ArrayList<E> implements List<E> {
     protected E[] array;
     protected int size;
 
+    @Override
+    public List<E> newInstance() {
+        return new ArrayList<E>(isEmpty() ? CAPACITY : size);
+    }
+
     public ArrayList() {
         this(CAPACITY);
     }
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[])new Object[capacity];
+        array = (E[]) new Object[capacity];
     }
 
     @Override
@@ -115,6 +120,27 @@ public class ArrayList<E> implements List<E> {
         @Override
         public E next() {
             return get(index++);
+        }
+
+    }
+
+    @Override
+    public Iterator<E> reverseIterator() {
+        return new ReverseItr();
+    }
+
+    private class ReverseItr implements Iterator<E> {
+
+        int index = size() - 1;
+
+        @Override
+        public boolean hasNext() {
+            return index >= 0;
+        }
+
+        @Override
+        public E next() {
+            return get(index--);
         }
 
     }

@@ -140,6 +140,14 @@ public class ListTest {
         assertTrue(itr.next() == 3);
         assertTrue(!itr.hasNext());
 
+        list = list.reverse();
+        assertTrue(list.indexOf(2) == 1);
+        assertTrue(list.lastIndexOf(2) == 1);
+        assertTrue(list.indexOf(3) == 0);
+        assertTrue(list.lastIndexOf(3) == 0);
+        assertTrue(list.size() == 2);
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 3, 2 }));
+
         list.clear();
         System.out.println(list);
         assertTrue(list.isEmpty());

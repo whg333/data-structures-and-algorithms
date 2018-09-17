@@ -1,7 +1,6 @@
 package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
@@ -11,6 +10,11 @@ public class LinkedList<E> implements List<E> {
     protected Node<E> head;
     protected Node<E> tail;
     protected int size;
+
+    @Override
+    public List<E> newInstance() {
+        return new LinkedList<E>();
+    }
 
     public LinkedList() {
         head = new Node<>(null, null, null);
@@ -133,30 +137,6 @@ public class LinkedList<E> implements List<E> {
     }
 
     @Override
-    public int indexOf(E e) {
-        Objects.requireNonNull(e);
-        Iterator<E> itr = iterator();
-        for (int i = 0; itr.hasNext(); i++) {
-            if (e.equals(itr.next())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    @Override
-    public int lastIndexOf(E e) {
-        Objects.requireNonNull(e);
-        Iterator<E> reverseItr = reverseIterator();
-        for (int i = size - 1; reverseItr.hasNext(); i--) {
-            if (e.equals(reverseItr.next())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    @Override
     public Iterator<E> iterator() {
         return new Itr();
     }
@@ -198,13 +178,14 @@ public class LinkedList<E> implements List<E> {
 
     }
 
+    @Override
     public Iterator<E> reverseIterator() {
         return new ReverseItr();
     }
 
     private class ReverseItr implements Iterator<E> {
 
-        ReverseItrNode reverseItrNode = new ReverseItrNode();
+        Iterator<Node<E>> reverseItrNode = reverseIteratorNode();
 
         @Override
         public boolean hasNext() {
@@ -218,7 +199,7 @@ public class LinkedList<E> implements List<E> {
 
     }
 
-    private Iterator<Node<E>> ReverseIteratorNode() {
+    private Iterator<Node<E>> reverseIteratorNode() {
         return new ReverseItrNode();
     }
 
@@ -228,7 +209,7 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return currNode.prev != null;
+            return currNode.prev != null && currNode.prev != head;
         }
 
         @Override

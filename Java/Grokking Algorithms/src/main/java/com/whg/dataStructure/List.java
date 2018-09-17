@@ -50,9 +50,9 @@ public interface List<E> extends Collection<E> {
 
     default int indexOf(E e) {
         Objects.requireNonNull(e);
-        int size = size();
-        for (int i = 0; i < size; i++) {
-            if (e.equals(get(i))) {
+        Iterator<E> itr = iterator();
+        for (int i = 0; itr.hasNext(); i++) {
+            if (e.equals(itr.next())) {
                 return i;
             }
         }
@@ -61,9 +61,9 @@ public interface List<E> extends Collection<E> {
 
     default int lastIndexOf(E e) {
         Objects.requireNonNull(e);
-        int lastIndex = size() - 1;
-        for (int i = lastIndex; i >= 0; i--) {
-            if (e.equals(get(i))) {
+        Iterator<E> reverseItr = reverseIterator();
+        for (int i = size() - 1; reverseItr.hasNext(); i--) {
+            if (e.equals(reverseItr.next())) {
                 return i;
             }
         }
@@ -89,5 +89,18 @@ public interface List<E> extends Collection<E> {
     E set(int index, E e);
 
     E[] toArray();
+
+    default List<E> reverse() {
+        List<E> list = newInstance();
+        Iterator<E> itr = reverseIterator();
+        while (itr.hasNext()) {
+            list.add(itr.next());
+        }
+        return list;
+    }
+
+    Iterator<E> reverseIterator();
+
+    List<E> newInstance();
 
 }
