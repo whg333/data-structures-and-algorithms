@@ -17,42 +17,71 @@ public class LinkedList<E> implements List<E> {
     }
 
     public LinkedList() {
-        head = new Node<>(null, null, null);
-        tail = new Node<>(null, null, null);
+
     }
 
     @Override
     public boolean add(int index, E e) {
         rangeCheckforAdd(index);
-        Node<E> prevNode = isHead(index) ? head : getNode(index - 1);
+        Node<E> newNode = isHead(index) ? linkHead(e) : linkBefore(index, e);
+        if (isTail(index)) {
+            tail = newNode;
+        }
+
+        size++;
+        return true;
+    }
+
+    private Node<E> linkHead(E e) {
+        boolean isFirstAdd = head == null; // same as isEmpty()
+        Node<E> newNode = new Node<>(e, null, isFirstAdd ? null : head);
+        if (!isFirstAdd) {
+            head.prev = newNode;
+        }
+        head = newNode;
+        return newNode;
+    }
+
+    private Node<E> linkBefore(int index, E e) {
+        Node<E> prevNode = getNode(index - 1);
         Node<E> newNode = new Node<>(e, prevNode, prevNode.next);
         if (prevNode.next != null) {
             prevNode.next.prev = newNode;
         }
         prevNode.next = newNode;
-        if (isTail(index)) {
-            tail.prev = newNode;
-        }
-        size++;
-        return true;
+        return newNode;
     }
 
     @Override
     public E remove(int index) {
         rangeCheck(index);
-        Node<E> prevNode = isHead(index) ? head : getNode(index - 1);
-        Node<E> oldNode = prevNode.next;
+        Node<E> oldNode = isHead(index) ? removeHead() : removeBefore(index);
+        if (isTail(index + 1)) {
+            tail = oldNode.prev;
+        }
+
         E value = oldNode.value;
+        oldNode.clear();
+
+        --size;
+        return value;
+    }
+
+    private Node<E> removeHead() {
+        Node<E> oldNode = head;
+        head = head.next;
+        head.prev = null;
+        return oldNode;
+    }
+
+    private Node<E> removeBefore(int index) {
+        Node<E> prevNode = getNode(index - 1);
+        Node<E> oldNode = prevNode.next;
         if (oldNode.next != null) {
             oldNode.next.prev = prevNode;
         }
         prevNode.next = oldNode.next;
-        if (isTail(index + 1)) {
-            tail.prev = oldNode.prev;
-        }
-        oldNode.clear();
-        --size;
-        return value;
+        return oldNode;
     }
 
     private boolean isHead(int index) {
@@ -110,8 +139,8 @@ public class LinkedList<E> implements List<E> {
         while (itrNode.hasNext()) {
             itrNode.next().clear();
         }
-        head.clear();
-        tail.clear();
+        head = null;
+        tail = null;
         size = 0;
     }
 
@@ -128,7 +157,7 @@ public class LinkedList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[]) new Object[size];
+        E[] array = (E[])new Object[size];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
@@ -167,13 +196,14 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return currNode.next != null;
+            return currNode != null;
         }
 
         @Override
         public Node<E> next() {
+            Node<E> next = currNode;
             currNode = currNode.next;
-            return currNode;
+            return next;
         }
 
     }
@@ -209,13 +239,14 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return currNode.prev != null && currNode.prev != head;
+            return currNode != null;
         }
 
         @Override
         public Node<E> next() {
+            Node<E> next = currNode;
             currNode = currNode.prev;
-            return currNode;
+            return next;
         }
 
     }
