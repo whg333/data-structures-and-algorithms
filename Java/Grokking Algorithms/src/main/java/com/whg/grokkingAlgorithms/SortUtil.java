@@ -52,6 +52,15 @@ public class SortUtil {
         return list;
     }
 
+    public static <T extends Number> T[] insertionSort(T[] array) {
+        return insertionSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+    }
+
+    public static <T extends Number> List<T> insertionSort(List<T> list) {
+        int size = list.size();
+        return list;
+    }
+
     public static <T extends Number> int compare(T a, T b) {
         return Long.valueOf(a.longValue()).compareTo(b.longValue());
     }
