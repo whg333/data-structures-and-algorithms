@@ -24,18 +24,16 @@ public class LinkedList<E> implements List<E> {
     public boolean add(int index, E e) {
         rangeCheckforAdd(index);
         Node<E> newNode = isHead(index) ? linkHead(e) : linkBefore(index, e);
-        if (isTail(index)) {
-            tail = newNode;
-        }
+        checkLinkTail(index, newNode);
 
         size++;
         return true;
     }
 
     private Node<E> linkHead(E e) {
-        boolean isFirstAdd = head == null; // same as isEmpty()
-        Node<E> newNode = new Node<>(e, null, isFirstAdd ? null : head);
-        if (!isFirstAdd) {
+        boolean hasHead = head != null; // same as !isEmpty()
+        Node<E> newNode = new Node<>(e, null, hasHead ? head : null);
+        if (hasHead) {
             head.prev = newNode;
         }
         head = newNode;
@@ -52,13 +50,17 @@ public class LinkedList<E> implements List<E> {
         return newNode;
     }
 
+    private void checkLinkTail(int index, Node<E> newNode) {
+        if (isTail(index)) {
+            tail = newNode;
+        }
+    }
+
     @Override
     public E remove(int index) {
         rangeCheck(index);
-        Node<E> oldNode = isHead(index) ? removeHead() : removeBefore(index);
-        if (isTail(index + 1)) {
-            tail = oldNode.prev;
-        }
+        Node<E> oldNode = isHead(index) ? unlinkHead() : unlinkBefore(index);
+        checkUnlinkTail(index + 1, oldNode); // tail is index + 1
 
         E value = oldNode.value;
         oldNode.clear();
@@ -67,14 +69,14 @@ public class LinkedList<E> implements List<E> {
         return value;
     }
 
-    private Node<E> removeHead() {
+    private Node<E> unlinkHead() {
         Node<E> oldNode = head;
         head = head.next;
         head.prev = null;
         return oldNode;
     }
 
-    private Node<E> removeBefore(int index) {
+    private Node<E> unlinkBefore(int index) {
         Node<E> prevNode = getNode(index - 1);
         Node<E> oldNode = prevNode.next;
         if (oldNode.next != null) {
@@ -82,6 +84,12 @@ public class LinkedList<E> implements List<E> {
         }
         prevNode.next = oldNode.next;
         return oldNode;
+    }
+
+    private void checkUnlinkTail(int index, Node<E> oldNode) {
+        if (isTail(index)) {
+            tail = oldNode.prev;
+        }
     }
 
     private boolean isHead(int index) {
