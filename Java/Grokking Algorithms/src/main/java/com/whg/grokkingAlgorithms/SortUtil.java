@@ -40,14 +40,14 @@ public class SortUtil {
         int size = list.size();
         for (int i = 0; i < size - 1; i++) {
             int minIndex = i;
-            T minValue = list.get(minIndex);
             for (int j = i + 1; j < size; j++) {
-                if (compare(minValue, list.get(j)) > 0) {
+                if (compare(list.get(minIndex), list.get(j)) > 0) {
                     minIndex = j;
-                    minValue = list.get(j);
                 }
             }
-            swap(list, i, minIndex);
+            if (i != minIndex) {
+                swap(list, i, minIndex);
+            }
         }
         return list;
     }
