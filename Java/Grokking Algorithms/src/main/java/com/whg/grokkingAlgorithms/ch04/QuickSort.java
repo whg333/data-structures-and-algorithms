@@ -25,7 +25,7 @@ public class QuickSort {
         List<T> less = new ArrayList<>(size);
         List<T> greater = new ArrayList<>(size);
         for (T t : list) {
-            if (t.longValue() <= pivot.longValue()) {
+            if (t.longValue() < pivot.longValue()) {
                 less.add(t);
             } else {
                 greater.add(t);

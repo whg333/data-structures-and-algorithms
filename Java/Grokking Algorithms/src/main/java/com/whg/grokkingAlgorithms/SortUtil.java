@@ -18,6 +18,10 @@ public class SortUtil {
         System.out.println(Arrays.toString(insertionSort(new Integer[] { 3, 5, 1, 4, 2 })));
         System.out.println(Arrays.toString(insertionSort(new Integer[] { 5, 4, 3, 2, 1 })));
         System.out.println(Arrays.toString(insertionSort(new Integer[] { 1, 2, 3, 4, 5 })));
+
+        System.out.println(Arrays.toString(mergeSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
+        System.out.println(Arrays.toString(mergeSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
+        System.out.println(Arrays.toString(mergeSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
     }
 
     public static <T extends Number> T[] bubbleSort(T[] array) {
@@ -77,6 +81,42 @@ public class SortUtil {
             }
         }
         return list;
+    }
+
+    public static <T extends Number> T[] mergeSort(T[] array) {
+        return mergeSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+    }
+
+    public static <T extends Number> List<T> mergeSort(List<T> list) {
+        int size = list.size();
+        if (size <= 1) {
+            return list;
+        }
+
+        int middleIndex = (int) Math.floor(size >> 1);
+        List<T> left = list.subList(0, middleIndex);
+        List<T> right = list.subList(middleIndex, size);
+        return merge(mergeSort(left), mergeSort(right));
+    }
+
+    private static <T extends Number> List<T> merge(List<T> left, List<T> right) {
+        int leftSize = left.size(), rightSize = right.size();
+        List<T> result = new ArrayList<>(leftSize + rightSize);
+        int leftIndex = 0, rightIndex = 0;
+        while (leftIndex < leftSize && rightIndex < rightSize) {
+            if (compare(left.get(leftIndex), right.get(rightIndex)) < 0) {
+                result.add(left.get(leftIndex++));
+            } else {
+                result.add(right.get(rightIndex++));
+            }
+        }
+        while (leftIndex < leftSize) {
+            result.add(left.get(leftIndex++));
+        }
+        while (rightIndex < rightSize) {
+            result.add(right.get(rightIndex++));
+        }
+        return result;
     }
 
     public static <T extends Number> int compare(T a, T b) {
