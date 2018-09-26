@@ -3,29 +3,36 @@ package com.whg.grokkingAlgorithms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class SortUtil {
 
+    private static Random random = new Random();
+
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] { 3, 5, 2, 1, 4 })));
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] { 1, 2, 3, 4, 5 })));
+        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 3, 5, 2, 1, 4 })));
+        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 5, 4, 3, 2, 1 })));
+        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 1, 2, 3, 4, 5 })));
+        //
+        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 3, 5, 2, 1, 4 })));
+        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 5, 4, 3, 2, 1 })));
+        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 1, 2, 3, 4, 5 })));
+        //
+        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 3, 5, 1, 4, 2 })));
+        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 5, 4, 3, 2, 1 })));
+        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 1, 2, 3, 4, 5 })));
+        //
+        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
+        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
+        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
 
-        System.out.println(Arrays.toString(selectionSort(new Integer[] { 3, 5, 2, 1, 4 })));
-        System.out.println(Arrays.toString(selectionSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        System.out.println(Arrays.toString(selectionSort(new Integer[] { 1, 2, 3, 4, 5 })));
-
-        System.out.println(Arrays.toString(insertionSort(new Integer[] { 3, 5, 1, 4, 2 })));
-        System.out.println(Arrays.toString(insertionSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        System.out.println(Arrays.toString(insertionSort(new Integer[] { 1, 2, 3, 4, 5 })));
-
-        System.out.println(Arrays.toString(mergeSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
-        System.out.println(Arrays.toString(mergeSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
-        System.out.println(Arrays.toString(mergeSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
+        System.out.println(Arrays.toString(quickSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
+        System.out.println(Arrays.toString(quickSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
+        System.out.println(Arrays.toString(quickSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
     }
 
     public static <T extends Number> T[] bubbleSort(T[] array) {
-        return bubbleSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+        return bubbleSort(Arrays.asList(array)).toArray(array);
     }
 
     public static <T extends Number> List<T> bubbleSort(List<T> list) {
@@ -43,7 +50,7 @@ public class SortUtil {
     }
 
     public static <T extends Number> T[] selectionSort(T[] array) {
-        return selectionSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+        return selectionSort(Arrays.asList(array)).toArray(array);
     }
 
     public static <T extends Number> List<T> selectionSort(List<T> list) {
@@ -65,7 +72,7 @@ public class SortUtil {
     }
 
     public static <T extends Number> T[] insertionSort(T[] array) {
-        return insertionSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+        return insertionSort(Arrays.asList(array)).toArray(array);
     }
 
     public static <T extends Number> List<T> insertionSort(List<T> list) {
@@ -84,7 +91,7 @@ public class SortUtil {
     }
 
     public static <T extends Number> T[] mergeSort(T[] array) {
-        return mergeSort(new ArrayList<>(Arrays.asList(array))).toArray(array);
+        return mergeSort(Arrays.asList(array)).toArray(array);
     }
 
     public static <T extends Number> List<T> mergeSort(List<T> list) {
@@ -117,6 +124,51 @@ public class SortUtil {
             result.add(right.get(rightIndex++));
         }
         return result;
+    }
+
+    public static <T extends Number> T[] quickSort(T[] array) {
+        return quickSort(Arrays.asList(array), 0, array.length - 1).toArray(array);
+    }
+
+    public static <T extends Number> List<T> quickSort(List<T> list, int leftIndex, int rightIndex) {
+        int size = list.size();
+        if (size <= 1) {
+            return list;
+        }
+
+        // 随机选择基准值就能达到快速排序的平均情况（也是最佳情况）而不是最糟情况
+        int pivotIndex = (int) Math.floor(rightIndex >> 1);/* random.nextInt(size); */
+        int partIndex = partition(list, pivotIndex);
+        if (partIndex > 0) {
+            quickSort(list, 0, partIndex);
+        }
+        if (partIndex < size) {
+            quickSort(list, partIndex + 1, size - 1);
+        }
+        return list;
+    }
+
+    public static <T extends Number> int partition(List<T> list, int pivotIndex) {
+        int size = list.size();
+        if (size <= 1) {
+            return 0;
+        }
+
+        T pivot = list.get(pivotIndex);
+        int leftIndex = 0, rightIndex = size - 1;
+        incrLeft: for (; leftIndex < rightIndex; leftIndex++) {
+            if (compare(list.get(leftIndex), pivot) > 0) {
+                for (; leftIndex < rightIndex; rightIndex--) {
+                    if (compare(list.get(rightIndex), pivot) < 0) {
+                        swap(list, leftIndex, rightIndex);
+                        System.out.println("-->" + Arrays.toString(list.toArray()));
+                        rightIndex--;
+                        continue incrLeft;
+                    }
+                }
+            }
+        }
+        return leftIndex;
     }
 
     public static <T extends Number> int compare(T a, T b) {
