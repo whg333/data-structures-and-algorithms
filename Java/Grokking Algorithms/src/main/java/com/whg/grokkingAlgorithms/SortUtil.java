@@ -10,25 +10,25 @@ public class SortUtil {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 3, 5, 2, 1, 4 })));
-        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        // System.out.println(Arrays.toString(bubbleSort(new Integer[] { 1, 2, 3, 4, 5 })));
-        //
-        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 3, 5, 2, 1, 4 })));
-        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        // System.out.println(Arrays.toString(selectionSort(new Integer[] { 1, 2, 3, 4, 5 })));
-        //
-        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 3, 5, 1, 4, 2 })));
-        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 5, 4, 3, 2, 1 })));
-        // System.out.println(Arrays.toString(insertionSort(new Integer[] { 1, 2, 3, 4, 5 })));
-        //
-        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
-        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
-        // System.out.println(Arrays.toString(mergeSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
+        System.out.println(Arrays.toString(bubbleSort(new Integer[] {3, 5, 2, 1, 4})));
+        System.out.println(Arrays.toString(bubbleSort(new Integer[] {5, 4, 3, 2, 1})));
+        System.out.println(Arrays.toString(bubbleSort(new Integer[] {1, 2, 3, 4, 5})));
 
-        System.out.println(Arrays.toString(quickSort(new Integer[] { 6, 3, 5, 1, 4, 2, 8, 7 })));
-        System.out.println(Arrays.toString(quickSort(new Integer[] { 8, 7, 6, 5, 4, 3, 2, 1 })));
-        System.out.println(Arrays.toString(quickSort(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
+        System.out.println(Arrays.toString(selectionSort(new Integer[] {3, 5, 2, 1, 4})));
+        System.out.println(Arrays.toString(selectionSort(new Integer[] {5, 4, 3, 2, 1})));
+        System.out.println(Arrays.toString(selectionSort(new Integer[] {1, 2, 3, 4, 5})));
+
+        System.out.println(Arrays.toString(insertionSort(new Integer[] {3, 5, 1, 4, 2})));
+        System.out.println(Arrays.toString(insertionSort(new Integer[] {5, 4, 3, 2, 1})));
+        System.out.println(Arrays.toString(insertionSort(new Integer[] {1, 2, 3, 4, 5})));
+
+        System.out.println(Arrays.toString(mergeSort(new Integer[] {6, 3, 5, 1, 4, 2, 8, 7})));
+        System.out.println(Arrays.toString(mergeSort(new Integer[] {8, 7, 6, 5, 4, 3, 2, 1})));
+        System.out.println(Arrays.toString(mergeSort(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8})));
+
+        System.out.println(Arrays.toString(quickSort(new Integer[] {3, 5, 1, 6, 4, 7, 2})));
+        System.out.println(Arrays.toString(quickSort(new Integer[] {7, 6, 5, 4, 3, 2, 1})));
+        System.out.println(Arrays.toString(quickSort(new Integer[] {1, 2, 3, 4, 5, 6, 7})));
     }
 
     public static <T extends Number> T[] bubbleSort(T[] array) {
@@ -100,7 +100,7 @@ public class SortUtil {
             return list;
         }
 
-        int middleIndex = (int) Math.floor(size >> 1);
+        int middleIndex = (int)Math.floor(size >> 1);
         List<T> left = list.subList(0, middleIndex);
         List<T> right = list.subList(middleIndex, size);
         return merge(mergeSort(left), mergeSort(right));
@@ -127,45 +127,47 @@ public class SortUtil {
     }
 
     public static <T extends Number> T[] quickSort(T[] array) {
-        return quickSort(Arrays.asList(array), 0, array.length - 1).toArray(array);
+        List<T> list = Arrays.asList(array);
+        quickSort(list, 0, array.length - 1);
+        return list.toArray(array);
     }
 
-    public static <T extends Number> List<T> quickSort(List<T> list, int leftIndex, int rightIndex) {
+    public static <T extends Number> void quickSort(List<T> list, int left, int right) {
         int size = list.size();
         if (size <= 1) {
-            return list;
+            return;
         }
 
+        int partIndex = partition(list, left, right);
+        if (left < partIndex - 1) {
+            quickSort(list, left, partIndex - 1);
+        }
+        if (partIndex < right) {
+            quickSort(list, partIndex, right);
+        }
+    }
+
+    public static <T extends Number> int partition(List<T> list, int left, int right) {
         // 随机选择基准值就能达到快速排序的平均情况（也是最佳情况）而不是最糟情况
-        int pivotIndex = (int) Math.floor(rightIndex >> 1);/* random.nextInt(size); */
-        int partIndex = partition(list, pivotIndex);
-        if (partIndex > 0) {
-            quickSort(list, 0, partIndex);
-        }
-        if (partIndex < size) {
-            quickSort(list, partIndex + 1, size - 1);
-        }
-        return list;
-    }
-
-    public static <T extends Number> int partition(List<T> list, int pivotIndex) {
-        int size = list.size();
-        if (size <= 1) {
-            return 0;
-        }
-
+        int pivotIndex = /*(int)Math.floor((left + right) >> 1);*/ left + random.nextInt(right - left);
         T pivot = list.get(pivotIndex);
-        int leftIndex = 0, rightIndex = size - 1;
-        incrLeft: for (; leftIndex < rightIndex; leftIndex++) {
-            if (compare(list.get(leftIndex), pivot) > 0) {
-                for (; leftIndex < rightIndex; rightIndex--) {
-                    if (compare(list.get(rightIndex), pivot) < 0) {
-                        swap(list, leftIndex, rightIndex);
-                        System.out.println("-->" + Arrays.toString(list.toArray()));
-                        rightIndex--;
-                        continue incrLeft;
-                    }
+
+        int leftIndex = left, rightIndex = right;
+        while (leftIndex <= rightIndex) {
+            while (compare(list.get(leftIndex), pivot) < 0) {
+                leftIndex++;
+            }
+            while (compare(list.get(rightIndex), pivot) > 0) {
+                rightIndex--;
+            }
+            if (leftIndex <= rightIndex) {
+                if (leftIndex != rightIndex) {
+                    // System.out.println("bf:" + Arrays.toString(list.toArray()));
+                    swap(list, leftIndex, rightIndex);
+                    // System.out.println("af:" + Arrays.toString(list.toArray()));
                 }
+                leftIndex++;
+                rightIndex--;
             }
         }
         return leftIndex;
