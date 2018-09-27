@@ -1,6 +1,6 @@
 package com.whg.dataStructure;
 
-public interface Collection<E> {
+public interface Collection<E> extends Container {
 
     boolean add(E e);
 
@@ -8,14 +8,8 @@ public interface Collection<E> {
 
     boolean has(E e);
 
-    void clear();
-
-    default boolean isEmpty() {
-        return size() == 0;
-    }
-
-    int size();
-
     Iterator<E> iterator();
+
+    Iterator<E> reverseIterator();
 
 }

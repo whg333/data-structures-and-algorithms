@@ -99,8 +99,6 @@ public interface List<E> extends Collection<E> {
         return list;
     }
 
-    Iterator<E> reverseIterator();
-
     List<E> newInstance();
 
 }
