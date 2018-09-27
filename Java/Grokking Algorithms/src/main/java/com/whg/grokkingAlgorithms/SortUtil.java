@@ -9,28 +9,6 @@ public class SortUtil {
 
     private static Random random = new Random();
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] {3, 5, 2, 1, 4})));
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] {5, 4, 3, 2, 1})));
-        System.out.println(Arrays.toString(bubbleSort(new Integer[] {1, 2, 3, 4, 5})));
-
-        System.out.println(Arrays.toString(selectionSort(new Integer[] {3, 5, 2, 1, 4})));
-        System.out.println(Arrays.toString(selectionSort(new Integer[] {5, 4, 3, 2, 1})));
-        System.out.println(Arrays.toString(selectionSort(new Integer[] {1, 2, 3, 4, 5})));
-
-        System.out.println(Arrays.toString(insertionSort(new Integer[] {3, 5, 1, 4, 2})));
-        System.out.println(Arrays.toString(insertionSort(new Integer[] {5, 4, 3, 2, 1})));
-        System.out.println(Arrays.toString(insertionSort(new Integer[] {1, 2, 3, 4, 5})));
-
-        System.out.println(Arrays.toString(mergeSort(new Integer[] {6, 3, 5, 1, 4, 2, 8, 7})));
-        System.out.println(Arrays.toString(mergeSort(new Integer[] {8, 7, 6, 5, 4, 3, 2, 1})));
-        System.out.println(Arrays.toString(mergeSort(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8})));
-
-        System.out.println(Arrays.toString(quickSort(new Integer[] {3, 5, 1, 6, 4, 7, 2})));
-        System.out.println(Arrays.toString(quickSort(new Integer[] {7, 6, 5, 4, 3, 2, 1})));
-        System.out.println(Arrays.toString(quickSort(new Integer[] {1, 2, 3, 4, 5, 6, 7})));
-    }
-
     public static <T extends Number> T[] bubbleSort(T[] array) {
         return bubbleSort(Arrays.asList(array)).toArray(array);
     }
@@ -100,7 +78,7 @@ public class SortUtil {
             return list;
         }
 
-        int middleIndex = (int)Math.floor(size >> 1);
+        int middleIndex = (int) Math.floor(size >> 1);
         List<T> left = list.subList(0, middleIndex);
         List<T> right = list.subList(middleIndex, size);
         return merge(mergeSort(left), mergeSort(right));
@@ -149,7 +127,7 @@ public class SortUtil {
 
     public static <T extends Number> int partition(List<T> list, int left, int right) {
         // 随机选择基准值就能达到快速排序的平均情况（也是最佳情况）而不是最糟情况
-        int pivotIndex = /*(int)Math.floor((left + right) >> 1);*/ left + random.nextInt(right - left);
+        int pivotIndex = /* (int)Math.floor((left + right) >> 1); */ left + random.nextInt(right - left);
         T pivot = list.get(pivotIndex);
 
         int leftIndex = left, rightIndex = right;
