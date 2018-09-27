@@ -7,10 +7,10 @@ import com.whg.dataStructure.Stack;
 
 public class ArrayStack<E> extends ArrayList<E> implements Stack<E> {
 
-    private static final int CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 8;
 
     public ArrayStack() {
-        this(CAPACITY);
+        this(DEFAULT_CAPACITY);
     }
 
     public ArrayStack(int capacity) {
@@ -19,7 +19,7 @@ public class ArrayStack<E> extends ArrayList<E> implements Stack<E> {
 
     @Override
     public String toString() {
-        return "ArrayStack [array=" + Arrays.toString(array) + ", size=" + size + "]";
+        return "ArrayStack [array=" + Arrays.toString(array) + ", size=" + size + ", capacity=" + array.length + "]";
     }
 
     @Override

@@ -7,18 +7,18 @@ import com.whg.dataStructure.List;
 
 public class ArrayList<E> implements List<E> {
 
-    private static final int CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 8;
 
     protected E[] array;
     protected int size;
 
     @Override
     public List<E> newInstance() {
-        return new ArrayList<E>(isEmpty() ? CAPACITY : size);
+        return new ArrayList<E>(isEmpty() ? DEFAULT_CAPACITY : size);
     }
 
     public ArrayList() {
-        this(CAPACITY);
+        this(DEFAULT_CAPACITY);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +95,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public String toString() {
-        return "ArrayList [array=" + Arrays.toString(array) + ", size=" + size + "]";
+        return "ArrayList [array=" + Arrays.toString(array) + ", size=" + size + ", capacity=" + array.length + "]";
     }
 
     @Override

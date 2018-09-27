@@ -6,10 +6,10 @@ import com.whg.dataStructure.Queue;
 
 public class ArrayQueue<E> extends ArrayList<E> implements Queue<E> {
 
-    private static final int CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 8;
 
     public ArrayQueue() {
-        this(CAPACITY);
+        this(DEFAULT_CAPACITY);
     }
 
     public ArrayQueue(int capacity) {
@@ -18,7 +18,7 @@ public class ArrayQueue<E> extends ArrayList<E> implements Queue<E> {
 
     @Override
     public String toString() {
-        return "ArrayQueue [array=" + Arrays.toString(array) + ", size=" + size + "]";
+        return "ArrayQueue [array=" + Arrays.toString(array) + ", size=" + size + ", capacity=" + array.length + "]";
     }
 
 }

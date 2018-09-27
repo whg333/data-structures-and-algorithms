@@ -1,18 +1,46 @@
 package com.whg.dataStructure;
 
+import com.whg.dataStructure.impl.ArrayList;
+
 public interface Map<K, V> extends Container {
 
-    boolean put(K k, V v);
+    V put(K k, V v);
 
-    boolean remove(K k);
+    V remove(K k);
 
     V get(K k);
 
-    boolean hasKey(K k);
+    default boolean hasKey(K k) {
+        return get(k) != null;
+    }
 
-    boolean hasValue(V v);
+    default boolean hasValue(V v) {
+        Iterator<V> itr = values().iterator();
+        while (itr.hasNext()) {
+            if (itr.next().equals(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    Set<K> keys();
+    default Collection<K> keys() {
+        List<K> keys = new ArrayList<>(size());
+        Iterator<Entry<K, V>> itr = entries().iterator();
+        while (itr.hasNext()) {
+            keys.add(itr.next().key());
+        }
+        return keys;
+    }
 
-    Collection<V> values();
+    default Collection<V> values() {
+        List<V> values = new ArrayList<>(size());
+        Iterator<Entry<K, V>> itr = entries().iterator();
+        while (itr.hasNext()) {
+            values.add(itr.next().value());
+        }
+        return values;
+    }
+
+    Collection<Entry<K, V>> entries();
 }
