@@ -23,7 +23,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[]) new Object[capacity];
+        array = (E[])new Object[capacity];
     }
 
     @Override
@@ -137,7 +137,7 @@ public class ArrayList<E> implements List<E> {
         return new ReverseItr();
     }
 
-    private class ReverseItr implements Iterator<E> {
+    protected class ReverseItr implements Iterator<E> {
 
         int index = size() - 1;
         int lastIndex = -1;
@@ -155,8 +155,7 @@ public class ArrayList<E> implements List<E> {
 
         @Override
         public void remove() {
-            ArrayList.this.remove(index);
-            index = lastIndex;
+            ArrayList.this.remove(lastIndex);
         }
 
     }

@@ -52,8 +52,18 @@ public class StackTest {
 
         assertTrue(stack.peek() == 8);
         assertTrue(stack.size() == 2);
+
         itr = stack.iterator();
         assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 8);
+        assertTrue(stack.has(8));
+        itr.remove();
+        System.out.println(stack);
+        assertTrue(!stack.has(8));
+        assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 5);
+        assertTrue(!itr.hasNext());
+        assertTrue(stack.has(5));
 
         stack.clear();
         System.out.println(stack);

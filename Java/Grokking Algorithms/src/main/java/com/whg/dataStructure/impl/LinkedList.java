@@ -167,7 +167,7 @@ public class LinkedList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[]) new Object[size];
+        E[] array = (E[])new Object[size];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
@@ -284,7 +284,6 @@ public class LinkedList<E> implements List<E> {
         @Override
         public void remove() {
             LinkedList.this.remove(lastIndex);
-            index = lastIndex;
         }
 
     }
