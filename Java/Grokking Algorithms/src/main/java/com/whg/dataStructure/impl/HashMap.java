@@ -1,5 +1,7 @@
 package com.whg.dataStructure.impl;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
 import com.whg.dataStructure.Collection;
@@ -11,7 +13,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     private static final int DEFAULT_CAPACITY = 8;
 
-    private Entry<K, V>[] array;
+    private LinkedList<Entry<K, V>>[] array;
     protected int size;
 
     public HashMap() {
@@ -20,35 +22,74 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @SuppressWarnings("unchecked")
     public HashMap(int capacity) {
-        array = (Entry<K, V>[]) new Object[capacity];
+        array = new LinkedList[capacity];
     }
 
     @Override
     public V put(K k, V v) {
         Objects.requireNonNull(k);
         Objects.requireNonNull(v);
-        V old = get(k);
-        if (old == null) {
-            array[hash(k)] = new Entry<>(k, v);
+        Entry<K, V> oldEntry = getEntry(k);
+        if (oldEntry == null) {
+            Entry<K, V> newEntry = new Entry<>(k, v);
+            int hash = hash(k);
+            if (array[hash] == null) {
+                LinkedList<Entry<K, V>> list = new LinkedList<>();
+                list.add(newEntry);
+                array[hash] = list;
+            } else {
+                array[hash].add(newEntry);
+            }
+            size++;
+            return null;
         } else {
-            array[hash(k)].value(v);
+            V old = oldEntry.value();
+            oldEntry.value(v);
+            size++;
+            return old;
         }
-        size++;
-        return old;
     }
 
     @Override
     public V remove(K k) {
-        V old = get(k);
-        array[hash(k)] = null;
+        Objects.requireNonNull(k);
+        int hash = hash(k);
+        Iterator<Entry<K, V>> itr = array[hash].iterator();
+        V old = null;
+        while (itr.hasNext()) {
+            Entry<K, V> entry = itr.next();
+            if (entry.key().equals(k)) {
+                old = entry.value();
+                itr.remove();
+                break;
+            }
+        }
+
+        if (array[hash].isEmpty()) {
+            array[hash] = null;
+        }
         size--;
         return old;
     }
 
     @Override
     public V get(K k) {
+        Entry<K, V> entry = getEntry(k);
+        return entry == null ? null : entry.value();
+    }
+
+    private Entry<K, V> getEntry(K k) {
+        Objects.requireNonNull(k);
         int hash = hash(k);
-        return array[hash] == null ? null : array[hash].value();
+        if (array[hash] == null) {
+            return null;
+        }
+        for (Entry<K, V> entry : array[hash]) {
+            if (entry.key().equals(k)) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     private int hash(K k) {
@@ -57,7 +98,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < array.length; i++) {
             array[i] = null; // clear to let GC do its work
         }
         size = 0;
@@ -71,13 +112,20 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public Collection<Entry<K, V>> entries() {
         List<Entry<K, V>> entryies = new ArrayList<>(array.length);
-        for (Entry<K, V> entry : array) {
-            if (entry == null) {
+        for (LinkedList<Entry<K, V>> list : array) {
+            if (list == null) {
                 continue;
             }
-            entryies.add(entry);
+            for (Entry<K, V> entry : list) {
+                entryies.add(entry);
+            }
         }
         return entryies;
+    }
+
+    @Override
+    public String toString() {
+        return "HashMap [array=" + Arrays.toString(array) + ", size=" + size + ", capacity=" + array.length + "]";
     }
 
 }

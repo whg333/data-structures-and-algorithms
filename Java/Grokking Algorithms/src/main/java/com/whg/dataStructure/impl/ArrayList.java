@@ -1,13 +1,13 @@
 package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
 
 public class ArrayList<E> implements List<E> {
 
-    private static final int DEFAULT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 2;
 
     protected E[] array;
     protected int size;
@@ -110,16 +110,24 @@ public class ArrayList<E> implements List<E> {
 
     private class Itr implements Iterator<E> {
 
-        int index;
+        int index = 0;
+        int lastIndex = -1;
 
         @Override
         public boolean hasNext() {
-            return index <= size - 1;
+            return index != size;
         }
 
         @Override
         public E next() {
-            return get(index++);
+            lastIndex = index;
+            return array[index++];
+        }
+
+        @Override
+        public void remove() {
+            ArrayList.this.remove(lastIndex);
+            index = lastIndex;
         }
 
     }
@@ -132,6 +140,7 @@ public class ArrayList<E> implements List<E> {
     private class ReverseItr implements Iterator<E> {
 
         int index = size() - 1;
+        int lastIndex = -1;
 
         @Override
         public boolean hasNext() {
@@ -140,7 +149,14 @@ public class ArrayList<E> implements List<E> {
 
         @Override
         public E next() {
-            return get(index--);
+            lastIndex = index;
+            return array[index--];
+        }
+
+        @Override
+        public void remove() {
+            ArrayList.this.remove(index);
+            index = lastIndex;
         }
 
     }

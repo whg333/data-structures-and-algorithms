@@ -18,12 +18,13 @@ public class Entry<K, V> {
         return v;
     }
 
-    public void key(K k) {
-        this.k = k;
-    }
-
     public void value(V v) {
         this.v = v;
+    }
+
+    @Override
+    public String toString() {
+        return "Entry [k=" + k + ", v=" + v + "]";
     }
 
 }

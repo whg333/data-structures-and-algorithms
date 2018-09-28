@@ -1,5 +1,6 @@
 package com.whg.dataStructure;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public interface List<E> extends Collection<E> {

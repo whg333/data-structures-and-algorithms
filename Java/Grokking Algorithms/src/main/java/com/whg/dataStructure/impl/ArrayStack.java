@@ -1,13 +1,13 @@
 package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.Stack;
 
 public class ArrayStack<E> extends ArrayList<E> implements Stack<E> {
 
-    private static final int DEFAULT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 2;
 
     public ArrayStack() {
         this(DEFAULT_CAPACITY);
@@ -39,6 +39,11 @@ public class ArrayStack<E> extends ArrayList<E> implements Stack<E> {
         @Override
         public E next() {
             return get(index--);
+        }
+
+        @Override
+        public void remove() {
+            ArrayStack.this.remove(index);
         }
 
     }

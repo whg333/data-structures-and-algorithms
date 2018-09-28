@@ -15,9 +15,8 @@ public interface Map<K, V> extends Container {
     }
 
     default boolean hasValue(V v) {
-        Iterator<V> itr = values().iterator();
-        while (itr.hasNext()) {
-            if (itr.next().equals(v)) {
+        for (V value : values()) {
+            if (value.equals(v)) {
                 return true;
             }
         }
@@ -26,18 +25,16 @@ public interface Map<K, V> extends Container {
 
     default Collection<K> keys() {
         List<K> keys = new ArrayList<>(size());
-        Iterator<Entry<K, V>> itr = entries().iterator();
-        while (itr.hasNext()) {
-            keys.add(itr.next().key());
+        for (Entry<K, V> entry : entries()) {
+            keys.add(entry.key());
         }
         return keys;
     }
 
     default Collection<V> values() {
         List<V> values = new ArrayList<>(size());
-        Iterator<Entry<K, V>> itr = entries().iterator();
-        while (itr.hasNext()) {
-            values.add(itr.next().value());
+        for (Entry<K, V> entry : entries()) {
+            values.add(entry.value());
         }
         return values;
     }

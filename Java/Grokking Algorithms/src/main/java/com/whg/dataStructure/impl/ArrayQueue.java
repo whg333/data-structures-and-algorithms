@@ -6,7 +6,7 @@ import com.whg.dataStructure.Queue;
 
 public class ArrayQueue<E> extends ArrayList<E> implements Queue<E> {
 
-    private static final int DEFAULT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 2;
 
     public ArrayQueue() {
         this(DEFAULT_CAPACITY);

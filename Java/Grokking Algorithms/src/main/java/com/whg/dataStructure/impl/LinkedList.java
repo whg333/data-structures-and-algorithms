@@ -1,8 +1,8 @@
 package com.whg.dataStructure.impl;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-import com.whg.dataStructure.Iterator;
 import com.whg.dataStructure.List;
 
 public class LinkedList<E> implements List<E> {
@@ -72,7 +72,9 @@ public class LinkedList<E> implements List<E> {
     private Node<E> unlinkHead() {
         Node<E> oldNode = head;
         head = head.next;
-        head.prev = null;
+        if (head != null) {
+            head.prev = null;
+        }
         return oldNode;
     }
 
@@ -192,6 +194,11 @@ public class LinkedList<E> implements List<E> {
             return itrNode.next().value;
         }
 
+        @Override
+        public void remove() {
+            itrNode.remove();
+        }
+
     }
 
     private Iterator<Node<E>> iteratorNode() {
@@ -201,17 +208,26 @@ public class LinkedList<E> implements List<E> {
     private class ItrNode implements Iterator<Node<E>> {
 
         Node<E> currNode = head;
+        int index = 0;
+        int lastIndex = -1;
 
         @Override
         public boolean hasNext() {
-            return currNode != null;
+            return index != size;
         }
 
         @Override
         public Node<E> next() {
             Node<E> next = currNode;
             currNode = currNode.next;
+            lastIndex = index++;
             return next;
+        }
+
+        @Override
+        public void remove() {
+            LinkedList.this.remove(lastIndex);
+            index = lastIndex;
         }
 
     }
@@ -235,6 +251,11 @@ public class LinkedList<E> implements List<E> {
             return reverseItrNode.next().value;
         }
 
+        @Override
+        public void remove() {
+            reverseItrNode.remove();
+        }
+
     }
 
     private Iterator<Node<E>> reverseIteratorNode() {
@@ -244,17 +265,26 @@ public class LinkedList<E> implements List<E> {
     private class ReverseItrNode implements Iterator<Node<E>> {
 
         Node<E> currNode = tail;
+        int index = size() - 1;
+        int lastIndex = -1;
 
         @Override
         public boolean hasNext() {
-            return currNode != null;
+            return index >= 0;
         }
 
         @Override
         public Node<E> next() {
             Node<E> next = currNode;
             currNode = currNode.prev;
+            lastIndex = index--;
             return next;
+        }
+
+        @Override
+        public void remove() {
+            LinkedList.this.remove(lastIndex);
+            index = lastIndex;
         }
 
     }
