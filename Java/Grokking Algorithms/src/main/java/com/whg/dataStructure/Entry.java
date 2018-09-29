@@ -18,8 +18,10 @@ public class Entry<K, V> {
         return v;
     }
 
-    public void value(V v) {
+    public V value(V v) {
+        V old = this.v;
         this.v = v;
+        return old;
     }
 
     @Override

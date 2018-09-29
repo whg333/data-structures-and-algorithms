@@ -12,17 +12,25 @@ import com.whg.dataStructure.Map;
 public class HashMap<K, V> implements Map<K, V> {
 
     private static final int DEFAULT_CAPACITY = 8;
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     private LinkedList<Entry<K, V>>[] array;
     protected int size;
 
+    protected final float loadFactor;
+
     public HashMap() {
-        this(DEFAULT_CAPACITY);
+        this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+    }
+
+    public HashMap(int capacity) {
+        this(capacity, DEFAULT_LOAD_FACTOR);
     }
 
     @SuppressWarnings("unchecked")
-    public HashMap(int capacity) {
-        array = new LinkedList[capacity];
+    public HashMap(int capacity, float loadFactor) {
+        this.array = new LinkedList[capacity];
+        this.loadFactor = loadFactor;
     }
 
     @Override
@@ -30,23 +38,41 @@ public class HashMap<K, V> implements Map<K, V> {
         Objects.requireNonNull(k);
         Objects.requireNonNull(v);
         Entry<K, V> oldEntry = getEntry(k);
-        if (oldEntry == null) {
-            Entry<K, V> newEntry = new Entry<>(k, v);
-            int hash = hash(k);
-            if (array[hash] == null) {
-                LinkedList<Entry<K, V>> list = new LinkedList<>();
-                list.add(newEntry);
-                array[hash] = list;
-            } else {
-                array[hash].add(newEntry);
-            }
-            size++;
-            return null;
+        if (oldEntry != null) { // if found then replace
+            return oldEntry.value(v);
+        }
+
+        addNewEntry(k, v);
+        return null;
+    }
+
+    private void addNewEntry(K k, V v) {
+        thresholdCheck(size + 1);
+
+        Entry<K, V> newEntry = new Entry<>(k, v);
+        int hash = hash(k);
+        if (array[hash] == null) {
+            LinkedList<Entry<K, V>> list = new LinkedList<>();
+            list.add(newEntry);
+            array[hash] = list;
         } else {
-            V old = oldEntry.value();
-            oldEntry.value(v);
-            size++;
-            return old;
+            array[hash].add(newEntry);
+        }
+        size++;
+    }
+
+    private void thresholdCheck(int size) {
+        double currThreshold = 1f * size / array.length;
+        if (currThreshold <= loadFactor) {
+            return;
+        }
+
+        Collection<Entry<K, V>> entries = entries();
+        clear();
+        // grow capacity and rehash
+        array = Arrays.copyOf(array, array.length + (array.length >> 1));
+        for (Entry<K, V> entry : entries) {
+            put(entry.key(), entry.value());
         }
     }
 

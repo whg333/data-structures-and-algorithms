@@ -23,7 +23,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[])new Object[capacity];
+        array = (E[]) new Object[capacity];
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ArrayList<E> implements List<E> {
         if (size + 1 > array.length) {
             array = Arrays.copyOf(array, array.length + (array.length >> 1));
         }
-        if (index != size) {
+        if (index != size) { // move array element which after index
             System.arraycopy(array, index, array, index + 1, size - index);
         }
         array[index] = e;

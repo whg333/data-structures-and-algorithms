@@ -29,6 +29,7 @@ public class MapTest {
         map.put(5, 5);
         System.out.println(map);
         assertTrue(map.get(5) == 5);
+        assertTrue(map.size() == 1);
 
         map.put(0, 0);
         map.put(7, 7);
@@ -38,6 +39,7 @@ public class MapTest {
 
         map.put(15, 15);
         System.out.println(map);
+        assertTrue(map.size() == 4);
 
         Integer popEle = map.remove(7);
         System.out.println(map);
@@ -62,6 +64,8 @@ public class MapTest {
 
         map.put(5, 15);
         System.out.println(map);
+        assertTrue(map.size() == 2);
+
         assertTrue(map.hasKey(5));
         assertTrue(!map.hasValue(5));
         assertTrue(map.hasKey(15));
@@ -73,6 +77,12 @@ public class MapTest {
         values = map.values();
         assertTrue(!values.has(5));
         assertTrue(values.has(15));
+
+        for (int i = 0; i < 10; i++) {
+            map.put(20 + i, 20 + i);
+        }
+        System.out.println(map);
+        assertTrue(map.size() == 12);
 
         map.clear();
         System.out.println(map);
