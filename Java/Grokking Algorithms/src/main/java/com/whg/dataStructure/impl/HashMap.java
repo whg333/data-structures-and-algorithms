@@ -86,19 +86,23 @@ public class HashMap<K, V> implements Map<K, V> {
 
         Iterator<Entry<K, V>> itr = array[hash].iterator();
         V old = null;
+        boolean removed = false;
         while (itr.hasNext()) {
             Entry<K, V> entry = itr.next();
             if (entry.key().equals(k)) {
                 old = entry.value();
                 itr.remove();
+                removed = true;
                 break;
             }
         }
 
-        if (array[hash].isEmpty()) {
-            array[hash] = null;
+        if (removed) {
+            if (array[hash].isEmpty()) {
+                array[hash] = null;
+            }
+            size--;
         }
-        size--;
         return old;
     }
 

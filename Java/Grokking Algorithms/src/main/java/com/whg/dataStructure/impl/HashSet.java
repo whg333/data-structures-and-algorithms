@@ -7,7 +7,12 @@ import com.whg.dataStructure.Set;
 
 public class HashSet<E> implements Set<E> {
 
-    private static final Object NONE = new Object();
+    private static final Object NONE = new Object() {
+        @Override
+        public String toString() {
+            return "NONE";
+        }
+    };
     private static final int DEFAULT_CAPACITY = 8;
 
     private final Map<E, Object> map;
@@ -48,6 +53,11 @@ public class HashSet<E> implements Set<E> {
     @Override
     public Iterator<E> iterator() {
         return map.keys().iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "HashSet [map=" + map + "]";
     }
 
 }

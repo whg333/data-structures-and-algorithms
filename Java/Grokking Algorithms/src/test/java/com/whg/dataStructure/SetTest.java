@@ -48,6 +48,7 @@ public class SetTest {
         assertTrue(set.remove(0));
         assertTrue(!set.remove(0));
         System.out.println(set);
+        assertTrue(set.size() == 2);
 
         assertTrue(set.has(5));
         assertTrue(set.has(15));
