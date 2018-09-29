@@ -10,6 +10,8 @@ public interface Collection<E> extends Container, Iterable<E> {
 
     boolean has(E e);
 
-    Iterator<E> reverseIterator();
+    default Iterator<E> reverseIterator() {
+        throw new UnsupportedOperationException("reverseIterator");
+    }
 
 }
