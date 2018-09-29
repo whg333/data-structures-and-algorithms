@@ -22,7 +22,7 @@ public class HashSet<E> implements Set<E> {
 
     @Override
     public boolean add(E e) {
-        return map.put(e, NONE) != null;
+        return map.put(e, NONE) == null;
     }
 
     @Override
