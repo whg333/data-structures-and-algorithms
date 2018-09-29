@@ -47,7 +47,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private void addNewEntry(K k, V v) {
-        thresholdCheck(size + 1);
+        checkThreshold(size + 1);
 
         Entry<K, V> newEntry = new Entry<>(k, v);
         int hash = hash(k);
@@ -61,8 +61,8 @@ public class HashMap<K, V> implements Map<K, V> {
         size++;
     }
 
-    private void thresholdCheck(int size) {
-        double currThreshold = 1f * size / array.length;
+    private void checkThreshold(int size) {
+        float currThreshold = 1f * size / array.length;
         if (currThreshold <= loadFactor) {
             return;
         }
@@ -137,7 +137,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public Collection<Entry<K, V>> entries() {
-        List<Entry<K, V>> entryies = new ArrayList<>(array.length);
+        List<Entry<K, V>> entryies = new ArrayList<>(size);
         for (LinkedList<Entry<K, V>> list : array) {
             if (list == null) {
                 continue;

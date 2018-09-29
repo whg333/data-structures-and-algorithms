@@ -28,19 +28,20 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E e) {
-        rangeCheckforAdd(index);
+        checkRangeforAdd(index);
         if (size + 1 > array.length) {
             array = Arrays.copyOf(array, array.length + (array.length >> 1));
         }
         if (index != size) { // move array element which after index
             System.arraycopy(array, index, array, index + 1, size - index);
         }
+
         array[index] = e;
         size++;
         return true;
     }
 
-    private void rangeCheckforAdd(int index) {
+    private void checkRangeforAdd(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
@@ -66,11 +67,11 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        rangeCheck(index);
+        checkRange(index);
         return array[index];
     }
 
-    private void rangeCheck(int index) {
+    private void checkRange(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
