@@ -38,7 +38,8 @@ public class HashMap<K, V> implements Map<K, V> {
         Objects.requireNonNull(k);
         Objects.requireNonNull(v);
         Entry<K, V> oldEntry = getEntry(k);
-        if (oldEntry != null) { // if found then replace
+        if (oldEntry != null) {
+            // if found then replace and return old value
             return oldEntry.value(v);
         }
 

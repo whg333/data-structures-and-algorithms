@@ -89,8 +89,6 @@ public interface List<E> extends Collection<E> {
 
     E set(int index, E e);
 
-    E[] toArray();
-
     default List<E> reverse() {
         List<E> list = newInstance();
         Iterator<E> itr = reverseIterator();
@@ -101,5 +99,7 @@ public interface List<E> extends Collection<E> {
     }
 
     List<E> newInstance();
+
+    Iterator<E> reverseIterator();
 
 }
