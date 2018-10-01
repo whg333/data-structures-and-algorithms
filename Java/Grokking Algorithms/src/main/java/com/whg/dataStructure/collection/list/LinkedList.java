@@ -20,7 +20,7 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E e) {
-        rangeCheckforAdd(index);
+        checkRangeForAdd(index);
         Node<E> newNode = isHead(index) ? linkHead(e) : linkBefore(index, e);
         checkLinkTail(index, newNode);
 
@@ -56,15 +56,15 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        rangeCheck(index);
+        checkRange(index);
         Node<E> oldNode = isHead(index) ? unlinkHead() : unlinkBefore(index);
         checkUnlinkTail(index + 1, oldNode); // tail is index + 1
 
-        E value = oldNode.value;
+        E old = oldNode.item;
         oldNode.clear();
 
         --size;
-        return value;
+        return old;
     }
 
     private Node<E> unlinkHead() {
@@ -103,18 +103,18 @@ public class LinkedList<E> implements List<E> {
     @Override
     public E set(int index, E e) {
         Node<E> oldNode = getNode(index);
-        E old = oldNode.value;
-        oldNode.value = e;
+        E old = oldNode.item;
+        oldNode.item = e;
         return old;
     }
 
     @Override
     public E get(int index) {
-        return getNode(index).value;
+        return getNode(index).item;
     }
 
     private Node<E> getNode(int index) {
-        rangeCheck(index);
+        checkRange(index);
         Iterator<Node<E>> itrNode = iteratorNode();
         for (int i = 0; itrNode.hasNext(); i++) {
             Node<E> next = itrNode.next();
@@ -125,13 +125,13 @@ public class LinkedList<E> implements List<E> {
         throw new IllegalArgumentException("Can not found index=" + index);
     }
 
-    private void rangeCheckforAdd(int index) {
+    private void checkRangeForAdd(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
     }
 
-    private void rangeCheck(int index) {
+    private void checkRange(int index) {
         if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException(outOfBoundsMsg(index));
         }
@@ -189,7 +189,7 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public E next() {
-            return itrNode.next().value;
+            return itrNode.next().item;
         }
 
         @Override
@@ -246,7 +246,7 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public E next() {
-            return reverseItrNode.next().value;
+            return reverseItrNode.next().item;
         }
 
         @Override
@@ -287,19 +287,19 @@ public class LinkedList<E> implements List<E> {
     }
 
     private static class Node<E> {
-        E value;
+        E item;
         Node<E> prev;
         Node<E> next;
 
-        public Node(E value, Node<E> prev, Node<E> next) {
-            this.value = value;
+        public Node(E item, Node<E> prev, Node<E> next) {
+            this.item = item;
             this.prev = prev;
             this.next = next;
         }
 
         /** clear to let GC do its work */
         void clear() {
-            value = null;
+            item = null;
             prev = null;
             next = null;
         }
