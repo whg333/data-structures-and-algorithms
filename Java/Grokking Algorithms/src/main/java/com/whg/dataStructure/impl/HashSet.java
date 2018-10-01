@@ -8,12 +8,7 @@ import com.whg.dataStructure.Set;
 
 public class HashSet<E> implements Set<E> {
 
-    private static final Object NONE = new Object() {
-        @Override
-        public String toString() {
-            return "NONE";
-        }
-    };
+    private static final Object NONE = new Object();
     private static final int DEFAULT_CAPACITY = 8;
 
     private final Map<E, Object> map;
@@ -33,7 +28,7 @@ public class HashSet<E> implements Set<E> {
 
     @Override
     public boolean remove(E e) {
-        return map.remove(e) != null;
+        return map.remove(e) == NONE;
     }
 
     @Override
@@ -64,7 +59,7 @@ public class HashSet<E> implements Set<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[]) new Object[size()];
+        E[] array = (E[])new Object[size()];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
