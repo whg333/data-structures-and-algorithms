@@ -1,7 +1,10 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection.list;
 
 import java.util.Iterator;
 import java.util.Objects;
+
+import com.whg.dataStructure.collection.Collection;
+import com.whg.dataStructure.collection.EmptyCollectionException;
 
 public interface List<E> extends Collection<E> {
 

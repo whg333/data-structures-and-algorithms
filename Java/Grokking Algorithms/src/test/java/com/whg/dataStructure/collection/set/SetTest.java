@@ -1,4 +1,4 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection.set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.impl.HashSet;
+import com.whg.dataStructure.collection.set.HashSet;
+import com.whg.dataStructure.collection.set.Set;
 
 public class SetTest {
 

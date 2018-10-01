@@ -1,4 +1,6 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection.queue;
+
+import com.whg.dataStructure.collection.list.List;
 
 public interface Queue<E> extends List<E> {
 

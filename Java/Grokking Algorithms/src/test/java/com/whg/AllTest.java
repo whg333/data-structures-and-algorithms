@@ -4,12 +4,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.whg.dataStructure.JavaListTest;
-import com.whg.dataStructure.ListTest;
-import com.whg.dataStructure.MapTest;
-import com.whg.dataStructure.QueueTest;
-import com.whg.dataStructure.SetTest;
-import com.whg.dataStructure.StackTest;
+import com.whg.dataStructure.collection.list.JavaListTest;
+import com.whg.dataStructure.collection.list.ListTest;
+import com.whg.dataStructure.collection.queue.QueueTest;
+import com.whg.dataStructure.collection.set.SetTest;
+import com.whg.dataStructure.collection.stack.StackTest;
+import com.whg.dataStructure.map.MapTest;
 import com.whg.grokkingAlgorithms.BinarySearchTest;
 import com.whg.grokkingAlgorithms.QuickSortTest;
 import com.whg.grokkingAlgorithms.SortUtilTest;

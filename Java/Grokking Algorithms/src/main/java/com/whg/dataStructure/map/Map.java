@@ -1,6 +1,9 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.map;
 
-import com.whg.dataStructure.impl.ArrayList;
+import com.whg.dataStructure.Container;
+import com.whg.dataStructure.collection.Collection;
+import com.whg.dataStructure.collection.list.ArrayList;
+import com.whg.dataStructure.collection.list.List;
 
 public interface Map<K, V> extends Container {
 

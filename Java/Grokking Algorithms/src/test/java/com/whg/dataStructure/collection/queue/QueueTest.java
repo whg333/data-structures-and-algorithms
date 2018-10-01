@@ -1,4 +1,4 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection.queue;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.impl.ArrayQueue;
+import com.whg.dataStructure.collection.queue.ArrayQueue;
+import com.whg.dataStructure.collection.queue.Queue;
 
 public class QueueTest {
 

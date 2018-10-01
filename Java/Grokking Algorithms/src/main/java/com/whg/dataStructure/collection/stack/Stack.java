@@ -1,4 +1,6 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection.stack;
+
+import com.whg.dataStructure.collection.list.List;
 
 public interface Stack<E> extends List<E> {
 

@@ -1,13 +1,13 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.map;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-import com.whg.dataStructure.Collection;
-import com.whg.dataStructure.Entry;
-import com.whg.dataStructure.List;
-import com.whg.dataStructure.Map;
+import com.whg.dataStructure.collection.Collection;
+import com.whg.dataStructure.collection.list.ArrayList;
+import com.whg.dataStructure.collection.list.LinkedList;
+import com.whg.dataStructure.collection.list.List;
 
 public class HashMap<K, V> implements Map<K, V> {
 

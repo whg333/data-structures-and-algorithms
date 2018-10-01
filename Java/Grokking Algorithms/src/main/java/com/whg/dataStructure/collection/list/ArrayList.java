@@ -1,9 +1,7 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.collection.list;
 
 import java.util.Arrays;
 import java.util.Iterator;
-
-import com.whg.dataStructure.List;
 
 public class ArrayList<E> implements List<E> {
 
@@ -23,7 +21,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[]) new Object[capacity];
+        array = (E[])new Object[capacity];
     }
 
     @Override
@@ -142,6 +140,10 @@ public class ArrayList<E> implements List<E> {
 
         int index = size() - 1;
         int lastIndex = -1;
+
+        public ReverseItr() {
+
+        }
 
         @Override
         public boolean hasNext() {

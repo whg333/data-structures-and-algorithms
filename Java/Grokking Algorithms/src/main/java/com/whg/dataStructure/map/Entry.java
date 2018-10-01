@@ -1,4 +1,4 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.map;
 
 public class Entry<K, V> {
 

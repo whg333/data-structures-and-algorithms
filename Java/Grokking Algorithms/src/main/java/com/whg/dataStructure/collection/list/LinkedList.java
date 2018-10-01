@@ -1,9 +1,7 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.collection.list;
 
 import java.util.Arrays;
 import java.util.Iterator;
-
-import com.whg.dataStructure.List;
 
 public class LinkedList<E> implements List<E> {
 

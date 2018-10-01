@@ -1,6 +1,8 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.collection;
 
 import java.util.Iterator;
+
+import com.whg.dataStructure.Container;
 
 public interface Collection<E> extends Container, Iterable<E> {
 

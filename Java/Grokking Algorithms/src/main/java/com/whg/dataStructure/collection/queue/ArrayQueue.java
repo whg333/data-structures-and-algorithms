@@ -1,8 +1,8 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.collection.queue;
 
 import java.util.Arrays;
 
-import com.whg.dataStructure.Queue;
+import com.whg.dataStructure.collection.list.ArrayList;
 
 public class ArrayQueue<E> extends ArrayList<E> implements Queue<E> {
 

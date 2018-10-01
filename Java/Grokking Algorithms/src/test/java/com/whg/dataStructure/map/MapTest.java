@@ -1,4 +1,4 @@
-package com.whg.dataStructure;
+package com.whg.dataStructure.map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.impl.HashMap;
+import com.whg.dataStructure.collection.Collection;
+import com.whg.dataStructure.map.HashMap;
+import com.whg.dataStructure.map.Map;
 
 public class MapTest {
 

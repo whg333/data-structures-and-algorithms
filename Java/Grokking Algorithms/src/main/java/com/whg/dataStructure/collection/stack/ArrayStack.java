@@ -1,9 +1,9 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.collection.stack;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.whg.dataStructure.Stack;
+import com.whg.dataStructure.collection.list.ArrayList;
 
 public class ArrayStack<E> extends ArrayList<E> implements Stack<E> {
 

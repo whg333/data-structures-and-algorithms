@@ -1,10 +1,10 @@
-package com.whg.dataStructure.impl;
+package com.whg.dataStructure.collection.set;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.whg.dataStructure.Map;
-import com.whg.dataStructure.Set;
+import com.whg.dataStructure.map.HashMap;
+import com.whg.dataStructure.map.Map;
 
 public class HashSet<E> implements Set<E> {
 
