@@ -1,12 +1,8 @@
 package com.whg.dataStructure.tree;
 
-public interface Tree<K> {
+import com.whg.dataStructure.collection.Collection;
 
-    void insert(K k);
-
-    K remove(K k);
-
-    boolean search(K k);
+public interface Tree<K extends Comparable<K>> extends Collection<K> {
 
     /** 中序遍历（左中右） */
     void inOrderTraverse();
