@@ -4,6 +4,7 @@ import com.whg.dataStructure.Container;
 import com.whg.dataStructure.collection.Collection;
 import com.whg.dataStructure.collection.list.ArrayList;
 import com.whg.dataStructure.collection.list.List;
+import com.whg.dataStructure.map.HashMap.Entry;
 
 public interface Map<K, V> extends Container {
 
