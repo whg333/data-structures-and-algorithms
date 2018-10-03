@@ -2,7 +2,7 @@ package com.whg.dataStructure.tree;
 
 import com.whg.dataStructure.collection.Collection;
 
-public interface Tree<K extends Comparable<K>> extends Collection<K> {
+public interface Tree<K> extends Collection<K> {
 
     /** 中序遍历（左中右） */
     void inOrderTraverse();

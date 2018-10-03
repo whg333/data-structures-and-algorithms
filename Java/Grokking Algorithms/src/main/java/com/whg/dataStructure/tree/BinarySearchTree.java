@@ -7,7 +7,7 @@ import com.whg.dataStructure.collection.EmptyCollectionException;
 import com.whg.dataStructure.collection.list.ArrayList;
 import com.whg.dataStructure.collection.list.List;
 
-public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
+public class BinarySearchTree<K> implements Tree<K> {
 
     private static final Object[] EMPTY_ARRAY = new Object[0];
 
@@ -26,7 +26,7 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
     }
 
     private void addNode(K k, Node<K> node) {
-        if (k.compareTo(node.key) < 0) {
+        if (compare(k, node.key) < 0) {
             if (node.left == null) {
                 node.left = new Node<>(k);
                 size++;
@@ -41,6 +41,14 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
                 addNode(k, node.right);
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private int compare(K a, K b) {
+        if (a instanceof Comparable) {
+            return ((Comparable<K>)a).compareTo(b);
+        }
+        return a.hashCode() - b.hashCode();
     }
 
     @Override
@@ -60,9 +68,10 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
         System.out.println(Arrays.toString(inOrderTraverseArray()));
     }
 
-    private Object[] inOrderTraverseArray() {
+    @SuppressWarnings("unchecked")
+    private K[] inOrderTraverseArray() {
         if (isEmpty()) {
-            return EMPTY_ARRAY;
+            return (K[])EMPTY_ARRAY;
         }
         List<K> result = new ArrayList<>(size);
         inOrderTraverseNode(root, result);
@@ -84,9 +93,10 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
         System.out.println(Arrays.toString(preOrderTraverseArray()));
     }
 
-    private Object[] preOrderTraverseArray() {
+    @SuppressWarnings("unchecked")
+    private K[] preOrderTraverseArray() {
         if (isEmpty()) {
-            return EMPTY_ARRAY;
+            return (K[])EMPTY_ARRAY;
         }
         List<K> result = new ArrayList<>(size);
         preOrderTraverse(root, result);
@@ -108,9 +118,10 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
         System.out.println(Arrays.toString(postOrderTraverseArray()));
     }
 
-    private Object[] postOrderTraverseArray() {
+    @SuppressWarnings("unchecked")
+    private K[] postOrderTraverseArray() {
         if (isEmpty()) {
-            return EMPTY_ARRAY;
+            return (K[])EMPTY_ARRAY;
         }
         List<K> result = new ArrayList<>(size);
         postOrderTraverse(root, result);
@@ -127,22 +138,20 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
         result.add(node.key);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public K min() {
         if (isEmpty()) {
             throw new EmptyCollectionException();
         }
-        return (K)inOrderTraverseArray()[0];
+        return inOrderTraverseArray()[0];
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public K max() {
         if (isEmpty()) {
             throw new EmptyCollectionException();
         }
-        return (K)inOrderTraverseArray()[size - 1];
+        return inOrderTraverseArray()[size - 1];
     }
 
     @Override
@@ -190,10 +199,9 @@ public class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
         return new Itr();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public K[] toArray() {
-        return (K[])inOrderTraverseArray();
+        return inOrderTraverseArray();
     }
 
     private List<K> toList() {
