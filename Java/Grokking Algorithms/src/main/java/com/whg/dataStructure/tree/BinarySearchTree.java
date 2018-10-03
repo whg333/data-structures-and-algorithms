@@ -9,8 +9,6 @@ import com.whg.dataStructure.collection.list.List;
 
 public class BinarySearchTree<K> implements Tree<K> {
 
-    private static final Object[] EMPTY_ARRAY = new Object[0];
-
     private Node<K> root;
     private int size;
 
@@ -68,22 +66,16 @@ public class BinarySearchTree<K> implements Tree<K> {
         System.out.println(Arrays.toString(inOrderTraverseArray()));
     }
 
-    @SuppressWarnings("unchecked")
     private K[] inOrderTraverseArray() {
-        if (isEmpty()) {
-            return (K[])EMPTY_ARRAY;
-        }
         List<K> result = new ArrayList<>(size);
         inOrderTraverseNode(root, result);
         return result.toArray();
     }
 
     private void inOrderTraverseNode(Node<K> node, List<K> result) {
-        if (node.left != null) {
+        if (node != null) {
             inOrderTraverseNode(node.left, result);
-        }
-        result.add(node.key);
-        if (node.right != null) {
+            result.add(node.key);
             inOrderTraverseNode(node.right, result);
         }
     }
@@ -93,22 +85,16 @@ public class BinarySearchTree<K> implements Tree<K> {
         System.out.println(Arrays.toString(preOrderTraverseArray()));
     }
 
-    @SuppressWarnings("unchecked")
     private K[] preOrderTraverseArray() {
-        if (isEmpty()) {
-            return (K[])EMPTY_ARRAY;
-        }
         List<K> result = new ArrayList<>(size);
         preOrderTraverse(root, result);
         return result.toArray();
     }
 
     private void preOrderTraverse(Node<K> node, List<K> result) {
-        result.add(node.key);
-        if (node.left != null) {
+        if (node != null) {
+            result.add(node.key);
             preOrderTraverse(node.left, result);
-        }
-        if (node.right != null) {
             preOrderTraverse(node.right, result);
         }
     }
@@ -118,24 +104,18 @@ public class BinarySearchTree<K> implements Tree<K> {
         System.out.println(Arrays.toString(postOrderTraverseArray()));
     }
 
-    @SuppressWarnings("unchecked")
     private K[] postOrderTraverseArray() {
-        if (isEmpty()) {
-            return (K[])EMPTY_ARRAY;
-        }
         List<K> result = new ArrayList<>(size);
         postOrderTraverse(root, result);
         return result.toArray();
     }
 
     private void postOrderTraverse(Node<K> node, List<K> result) {
-        if (node.left != null) {
+        if (node != null) {
             postOrderTraverse(node.left, result);
-        }
-        if (node.right != null) {
             postOrderTraverse(node.right, result);
+            result.add(node.key);
         }
-        result.add(node.key);
     }
 
     @Override
@@ -143,7 +123,17 @@ public class BinarySearchTree<K> implements Tree<K> {
         if (isEmpty()) {
             throw new EmptyCollectionException();
         }
-        return inOrderTraverseArray()[0];
+        // return inOrderTraverseArray()[0];
+        return minNode(root);
+    }
+
+    private K minNode(Node<K> node) {
+        K min = node.key;
+        while (node.left != null) {
+            min = node.left.key;
+            node = node.left;
+        }
+        return min;
     }
 
     @Override
@@ -151,7 +141,17 @@ public class BinarySearchTree<K> implements Tree<K> {
         if (isEmpty()) {
             throw new EmptyCollectionException();
         }
-        return inOrderTraverseArray()[size - 1];
+        // return inOrderTraverseArray()[size - 1];
+        return maxNode(root);
+    }
+
+    private K maxNode(Node<K> node) {
+        K max = node.key;
+        while (node.right != null) {
+            max = node.right.key;
+            node = node.right;
+        }
+        return max;
     }
 
     @Override
