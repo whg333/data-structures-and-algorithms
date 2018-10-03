@@ -59,6 +59,32 @@ public class BinarySearchTreeTest {
             System.out.print(itr.next() + ", ");
         }
         System.out.println();
+
+        System.out.println(tree.has(18));
+        System.out.println(tree.has(9));
+        System.out.println(tree.has(11));
+        System.out.println(tree.has(3));
+        System.out.println(tree.has(25));
+        System.out.println(tree.has(1));
+        System.out.println(tree.has(2));
+
+        tree.remove(6);
+        System.out.println(tree);
+        // tree.add(6);
+        // System.out.println(tree);
+
+        tree.remove(5);
+        System.out.println(tree);
+
+        tree.remove(15);
+        System.out.println(tree);
+
+        tree.inOrderTraverse();
+
+        tree.postOrderTraverse();
+        tree.clear();
+        System.out.println(tree);
+        tree.inOrderTraverse();
     }
 
     @After
