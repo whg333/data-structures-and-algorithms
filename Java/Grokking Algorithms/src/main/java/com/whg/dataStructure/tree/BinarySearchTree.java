@@ -1,8 +1,8 @@
 package com.whg.dataStructure.tree;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
+import com.whg.Pair;
 import com.whg.dataStructure.collection.EmptyCollectionException;
 import com.whg.dataStructure.collection.list.ArrayList;
 import com.whg.dataStructure.collection.list.List;
@@ -27,36 +27,51 @@ public class BinarySearchTree<K> implements Tree<K> {
         if (compare(k, node.key) < 0) {
             if (node.left == null) {
                 node.left = new Node<>(k);
+                afterAddLeftNode(node);
             } else {
                 addNode(node.left, k);
             }
         } else {
             if (node.right == null) {
                 node.right = new Node<>(k);
+                afterAddRightNode(node);
             } else {
                 addNode(node.right, k);
             }
         }
     }
 
+    protected void afterAddLeftNode(Node<K> node) {
+
+    }
+
+    protected void afterAddRightNode(Node<K> node) {
+
+    }
+
     @Override
     public boolean remove(K k) {
-        boolean result = removeNode(root, k) != null;
+        boolean result = removeNode(root, k).getRight();
         if (result) {
             size--;
         }
         return result;
     }
 
-    private Node<K> removeNode(Node<K> node, K k) {
+    private Pair<Node<K>, Boolean> removeNode(Node<K> node, K k) {
+        boolean removed = false;
         if (node == null) {
-            return null;
+            return Pair.of(null, removed);
         }
-        int result = compare(k, node.key);
-        if (result < 0) {
-            node.left = removeNode(node.left, k);
-        } else if (result > 0) {
-            node.right = removeNode(node.right, k);
+        int compare = compare(k, node.key);
+        if (compare < 0) {
+            Pair<Node<K>, Boolean> result = removeNode(node.left, k);
+            node.left = result.getLeft();
+            removed = result.getRight();
+        } else if (compare > 0) {
+            Pair<Node<K>, Boolean> result = removeNode(node.right, k);
+            node.right = result.getLeft();
+            removed = result.getRight();
         } else {
             if (node.left == null && node.right == null) { // 没有子节点的叶子节点
                 node = null;
@@ -69,10 +84,11 @@ public class BinarySearchTree<K> implements Tree<K> {
             } else { // 有2个子节点的节点
                 K min = minNode(node.right);
                 node.key = min;
-                node.right = removeNode(node.right, min);
+                node.right = removeNode(node.right, min).getLeft();
             }
+            removed = true;
         }
-        return node;
+        return Pair.of(node, removed);
     }
 
     @Override
@@ -144,7 +160,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     @Override
     public void clear() {
         // 后序遍历（左右中）然后一个个删除，相当于删除的都是叶子节点
-        for (K k : postOrderTraverseArray()) {
+        for (K k : postOrderTraverse()) {
             remove(k);
         }
 
@@ -159,11 +175,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @Override
-    public void inOrderTraverse() {
-        System.out.println(Arrays.toString(inOrderTraverseArray()));
-    }
-
-    private K[] inOrderTraverseArray() {
+    public K[] inOrderTraverse() {
         List<K> result = new ArrayList<>(size);
         inOrderTraverseNode(root, result);
         return result.toArray();
@@ -178,11 +190,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @Override
-    public void preOrderTraverse() {
-        System.out.println(Arrays.toString(preOrderTraverseArray()));
-    }
-
-    private K[] preOrderTraverseArray() {
+    public K[] preOrderTraverse() {
         List<K> result = new ArrayList<>(size);
         preOrderTraverse(root, result);
         return result.toArray();
@@ -197,11 +205,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @Override
-    public void postOrderTraverse() {
-        System.out.println(Arrays.toString(postOrderTraverseArray()));
-    }
-
-    private K[] postOrderTraverseArray() {
+    public K[] postOrderTraverse() {
         List<K> result = new ArrayList<>(size);
         postOrderTraverse(root, result);
         return result.toArray();
@@ -227,7 +231,7 @@ public class BinarySearchTree<K> implements Tree<K> {
 
     @Override
     public K[] toArray() {
-        return inOrderTraverseArray();
+        return inOrderTraverse();
     }
 
     private List<K> toList() {
@@ -259,7 +263,7 @@ public class BinarySearchTree<K> implements Tree<K> {
 
     }
 
-    private static class Node<K> {
+    protected static class Node<K> {
         K key;
         Node<K> left;
         Node<K> right;

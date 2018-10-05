@@ -1,5 +1,8 @@
 package com.whg.dataStructure.tree;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.junit.After;
@@ -18,8 +21,9 @@ public class BinarySearchTreeTest {
         testBinarySearchTree(new BinarySearchTree<>());
     }
 
-    private void testBinarySearchTree(BinarySearchTree<Integer> tree) {
-        tree.inOrderTraverse();
+    private void testBinarySearchTree(Tree<Integer> tree) {
+        Object[] traverse = tree.inOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
 
         tree.add(11);
         System.out.println(tree);
@@ -33,7 +37,9 @@ public class BinarySearchTreeTest {
         tree.add(8);
         tree.add(10);
         System.out.println(tree);
-        tree.inOrderTraverse();
+        traverse = tree.inOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {3, 5, 7, 8, 9, 10, 11, 15}));
 
         tree.add(13);
         tree.add(12);
@@ -45,46 +51,64 @@ public class BinarySearchTreeTest {
         tree.add(6);
         System.out.println(tree);
 
-        tree.inOrderTraverse();
+        traverse = tree.inOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 20, 25}));
 
-        tree.preOrderTraverse();
+        traverse = tree.preOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {11, 7, 5, 3, 6, 9, 8, 10, 15, 13, 12, 14, 20, 18, 25}));
 
-        tree.postOrderTraverse();
+        traverse = tree.postOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {3, 6, 5, 8, 10, 9, 7, 12, 14, 13, 18, 25, 20, 15, 11}));
 
-        System.out.println(tree.min());
-        System.out.println(tree.max());
+        assertTrue(tree.min() == 3);
+        assertTrue(tree.max() == 25);
 
         Iterator<Integer> itr = tree.iterator();
-        while (itr.hasNext()) {
-            System.out.print(itr.next() + ", ");
+        Integer[] itrArray = new Integer[tree.size()];
+        for (int i = 0; itr.hasNext(); i++) {
+            itrArray[i] = itr.next();
         }
-        System.out.println();
+        assertTrue(Arrays.equals(itrArray, new Integer[] {3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 20, 25}));
 
-        System.out.println(tree.has(18));
-        System.out.println(tree.has(9));
-        System.out.println(tree.has(11));
-        System.out.println(tree.has(3));
-        System.out.println(tree.has(25));
-        System.out.println(tree.has(1));
-        System.out.println(tree.has(2));
+        assertTrue(tree.has(18));
+        assertTrue(tree.has(9));
+        assertTrue(tree.has(11));
+        assertTrue(tree.has(3));
+        assertTrue(tree.has(25));
+        assertTrue(!tree.has(1));
+        assertTrue(!tree.has(2));
 
-        tree.remove(6);
+        assertTrue(tree.remove(6));
         System.out.println(tree);
         // tree.add(6);
         // System.out.println(tree);
 
-        tree.remove(5);
+        assertTrue(tree.remove(5));
         System.out.println(tree);
 
-        tree.remove(15);
+        assertTrue(tree.remove(15));
         System.out.println(tree);
 
-        tree.inOrderTraverse();
+        assertTrue(!tree.remove(88));
+        System.out.println(tree);
 
-        tree.postOrderTraverse();
+        traverse = tree.inOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {3, 7, 8, 9, 10, 11, 12, 13, 14, 18, 20, 25}));
+
+        traverse = tree.postOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {3, 8, 10, 9, 7, 12, 14, 13, 25, 20, 18, 11}));
+
         tree.clear();
         System.out.println(tree);
-        tree.inOrderTraverse();
+
+        traverse = tree.inOrderTraverse();
+        System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] {}));
     }
 
     @After
