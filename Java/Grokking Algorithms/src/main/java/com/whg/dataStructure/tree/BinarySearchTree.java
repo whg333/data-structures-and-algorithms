@@ -14,39 +14,31 @@ public class BinarySearchTree<K> implements Tree<K> {
 
     @Override
     public boolean add(K k) {
-        if (root == null) {
-            root = new Node<>(k);
-        } else {
-            addNode(root, k);
-        }
+        root = addNode(root, k);
         size++;
         return true;
     }
 
-    private void addNode(Node<K> node, K k) {
-        if (compare(k, node.key) < 0) {
-            if (node.left == null) {
-                node.left = new Node<>(k);
-                afterAddLeftNode(node);
-            } else {
-                addNode(node.left, k);
-            }
-        } else {
-            if (node.right == null) {
-                node.right = new Node<>(k);
-                afterAddRightNode(node);
-            } else {
-                addNode(node.right, k);
-            }
+    private Node<K> addNode(Node<K> node, K k) {
+        if (node == null) {
+            return new Node<>(k);
         }
+        if (compare(k, node.key) < 0) {
+            node.left = addNode(node.left, k);
+            node = afterAddLeftNode(node, k);
+        } else {
+            node.right = addNode(node.right, k);
+            node = afterAddRightNode(node, k);
+        }
+        return node;
     }
 
-    protected void afterAddLeftNode(Node<K> node) {
-
+    protected Node<K> afterAddLeftNode(Node<K> node, K k) {
+        return node;
     }
 
-    protected void afterAddRightNode(Node<K> node) {
-
+    protected Node<K> afterAddRightNode(Node<K> node, K k) {
+        return node;
     }
 
     @Override
@@ -112,7 +104,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @SuppressWarnings("unchecked")
-    private int compare(K a, K b) {
+    protected int compare(K a, K b) {
         if (a instanceof Comparable) {
             return ((Comparable<K>)a).compareTo(b);
         }
