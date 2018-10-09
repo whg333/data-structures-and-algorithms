@@ -14,7 +14,7 @@ public class HashMap<K, V> implements Map<K, V> {
     private static final int DEFAULT_CAPACITY = 8;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private LinkedList<Entry<K, V>>[] array;
+    protected LinkedList<Entry<K, V>>[] array;
     protected int size;
 
     protected final float loadFactor;
@@ -40,7 +40,9 @@ public class HashMap<K, V> implements Map<K, V> {
         Entry<K, V> oldEntry = getEntry(k);
         if (oldEntry != null) {
             // if found then replace and return old value
-            return oldEntry.value(v);
+            V old = oldEntry.value();
+            oldEntry.value(v);
+            return old;
         }
 
         addNewEntry(k, v);
@@ -113,7 +115,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return entry == null ? null : entry.value();
     }
 
-    private Entry<K, V> getEntry(K k) {
+    protected Entry<K, V> getEntry(K k) {
         Objects.requireNonNull(k);
         int hash = hash(k);
         if (array[hash] == null) {
@@ -165,7 +167,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     public static class Entry<K, V> {
 
-        private K k;
+        private final K k;
         private V v;
 
         public Entry(K k, V v) {
@@ -181,10 +183,8 @@ public class HashMap<K, V> implements Map<K, V> {
             return v;
         }
 
-        public V value(V v) {
-            V old = this.v;
+        public void value(V v) {
             this.v = v;
-            return old;
         }
 
         @Override

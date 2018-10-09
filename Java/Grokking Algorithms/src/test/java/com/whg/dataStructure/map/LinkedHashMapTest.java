@@ -11,16 +11,16 @@ import org.junit.Test;
 
 import com.whg.dataStructure.collection.Collection;
 
-public class MapTest {
+public class LinkedHashMapTest {
 
     @Before
     public void before() {
-        System.out.println("MapTest before");
+        System.out.println("LinkedHashMapTest before");
     }
 
     @Test
     public void test() {
-        testMap(new HashMap<>());
+        testMap(new LinkedHashMap<>());
     }
 
     private void testMap(Map<Integer, Integer> map) {
@@ -59,9 +59,11 @@ public class MapTest {
         Collection<Integer> keys = map.keys();
         assertTrue(keys.has(5));
         assertTrue(keys.has(15));
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15 }));
         Collection<Integer> values = map.values();
         assertTrue(values.has(5));
         assertTrue(values.has(15));
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 15 }));
 
         map.put(5, 15);
         System.out.println(map);
@@ -75,9 +77,11 @@ public class MapTest {
         keys = map.keys();
         assertTrue(keys.has(5));
         assertTrue(keys.has(15));
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15 }));
         values = map.values();
         assertTrue(!values.has(5));
         assertTrue(values.has(15));
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 15, 15 }));
 
         for (int i = 0; i < 10; i++) {
             map.put(20 + i, 20 + i);
@@ -86,10 +90,10 @@ public class MapTest {
         assertTrue(map.size() == 12);
         keys = map.keys();
         System.out.println(Arrays.toString(keys.toArray()));
-        assertTrue(!Arrays.equals(keys.toArray(), new Integer[] { 5, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
         values = map.values();
         System.out.println(Arrays.toString(values.toArray()));
-        assertTrue(!Arrays.equals(values.toArray(), new Integer[] { 15, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 15, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
 
         map.clear();
         System.out.println(map);
@@ -103,7 +107,7 @@ public class MapTest {
 
     @After
     public void after() {
-        System.out.println("MapTest after");
+        System.out.println("LinkedHashMapTest after");
     }
 
 }
