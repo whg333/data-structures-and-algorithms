@@ -3,7 +3,7 @@ package com.whg.dataStructure.tree;
 public class AdelsonVelskiiLandiTree<K> extends BinarySearchTree<K> {
 
     @Override
-    protected Node<K> afterAddLeftNode(Node<K> node, K k) {
+    protected Node<K> afterChangedLeftNode(Node<K> node, K k) {
         if (balanceFactor(node) > 1) {
             if (compare(k, node.left.key) < 0) {
                 node = rotationLL(node);
@@ -15,7 +15,7 @@ public class AdelsonVelskiiLandiTree<K> extends BinarySearchTree<K> {
     }
 
     @Override
-    protected Node<K> afterAddRightNode(Node<K> node, K k) {
+    protected Node<K> afterChangedRightNode(Node<K> node, K k) {
         if (balanceFactor(node) > 1) {
             if (compare(k, node.right.key) > 0) {
                 node = rotationRR(node);

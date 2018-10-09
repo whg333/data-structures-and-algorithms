@@ -25,19 +25,19 @@ public class BinarySearchTree<K> implements Tree<K> {
         }
         if (compare(k, node.key) < 0) {
             node.left = addNode(node.left, k);
-            node = afterAddLeftNode(node, k);
+            node = afterChangedLeftNode(node, k);
         } else {
             node.right = addNode(node.right, k);
-            node = afterAddRightNode(node, k);
+            node = afterChangedRightNode(node, k);
         }
         return node;
     }
 
-    protected Node<K> afterAddLeftNode(Node<K> node, K k) {
+    protected Node<K> afterChangedLeftNode(Node<K> node, K k) {
         return node;
     }
 
-    protected Node<K> afterAddRightNode(Node<K> node, K k) {
+    protected Node<K> afterChangedRightNode(Node<K> node, K k) {
         return node;
     }
 
@@ -152,9 +152,9 @@ public class BinarySearchTree<K> implements Tree<K> {
     @Override
     public void clear() {
         // 后序遍历（左右中）然后一个个删除，相当于删除的都是叶子节点
-        for (K k : postOrderTraverse()) {
-            remove(k);
-        }
+        /*
+         * for (K k : postOrderTraverse()) { remove(k); }
+         */
 
         // root根节点remove方法删除不掉，所以直接设置root为null和size为 0
         root = null;
