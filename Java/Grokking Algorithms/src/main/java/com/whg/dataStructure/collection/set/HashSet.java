@@ -32,8 +32,8 @@ public class HashSet<E> implements Set<E> {
     }
 
     @Override
-    public boolean has(E e) {
-        return map.hasKey(e);
+    public boolean contains(E e) {
+        return map.containsKey(e);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class HashSet<E> implements Set<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[])new Object[size()];
+        E[] array = (E[]) new Object[size()];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();

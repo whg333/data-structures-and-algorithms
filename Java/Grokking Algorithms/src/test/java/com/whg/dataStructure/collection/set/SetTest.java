@@ -8,9 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.collection.set.HashSet;
-import com.whg.dataStructure.collection.set.Set;
-
 public class SetTest {
 
     @Before
@@ -29,7 +26,7 @@ public class SetTest {
 
         assertTrue(set.add(5));
         System.out.println(set);
-        assertTrue(set.has(5));
+        assertTrue(set.contains(5));
         assertTrue(set.size() == 1);
 
         assertTrue(set.add(0));
@@ -51,16 +48,16 @@ public class SetTest {
         System.out.println(set);
         assertTrue(set.size() == 2);
 
-        assertTrue(set.has(5));
-        assertTrue(set.has(15));
-        assertTrue(!set.has(7));
+        assertTrue(set.contains(5));
+        assertTrue(set.contains(15));
+        assertTrue(!set.contains(7));
 
         assertTrue(!set.add(5));
         System.out.println(set);
         assertTrue(set.size() == 2);
 
-        assertTrue(set.has(5));
-        assertTrue(set.has(15));
+        assertTrue(set.contains(5));
+        assertTrue(set.contains(15));
 
         for (int i = 0; i < 10; i++) {
             set.add(20 + i);

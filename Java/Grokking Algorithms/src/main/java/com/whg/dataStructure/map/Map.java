@@ -14,11 +14,11 @@ public interface Map<K, V> extends Container {
 
     V get(K k);
 
-    default boolean hasKey(K k) {
+    default boolean containsKey(K k) {
         return get(k) != null;
     }
 
-    default boolean hasValue(V v) {
+    default boolean containsValue(V v) {
         for (V value : values()) {
             if (value.equals(v)) {
                 return true;

@@ -48,7 +48,7 @@ public interface List<E> extends Collection<E> {
     E remove(int index);
 
     @Override
-    default boolean has(E e) {
+    default boolean contains(E e) {
         return indexOf(e) >= 0;
     }
 

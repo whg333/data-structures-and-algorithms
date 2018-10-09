@@ -10,9 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.whg.dataStructure.collection.EmptyCollectionException;
-import com.whg.dataStructure.collection.list.ArrayList;
-import com.whg.dataStructure.collection.list.LinkedList;
-import com.whg.dataStructure.collection.list.List;
 
 public class ListTest {
 
@@ -79,35 +76,35 @@ public class ListTest {
         list.addLast(2);
         System.out.println(list);
         assertTrue(list.size() == 2);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {1, 2}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 1, 2 }));
 
         list.add(3);
         list.add(4);
         System.out.println(list);
         assertTrue(list.size() == 4);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {1, 2, 3, 4}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 1, 2, 3, 4 }));
 
         list.addFirst(0);
         list.addFirst(-1);
         System.out.println(list);
         assertTrue(list.size() == 6);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {-1, 0, 1, 2, 3, 4}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { -1, 0, 1, 2, 3, 4 }));
 
         list.add(0, -2);
         list.add(7, 5);
         System.out.println(list);
         assertTrue(list.size() == 8);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {-2, -1, 0, 1, 2, 3, 4, 5}));
-        assertTrue(list.has(2));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { -2, -1, 0, 1, 2, 3, 4, 5 }));
+        assertTrue(list.contains(2));
         assertTrue(list.indexOf(2) == 4);
         assertTrue(list.get(4) == 2);
-        assertTrue(list.has(-2));
+        assertTrue(list.contains(-2));
         assertTrue(list.lastIndexOf(-2) == 0);
         assertTrue(list.get(0) == -2);
-        assertTrue(list.has(5));
+        assertTrue(list.contains(5));
         assertTrue(list.indexOf(5) == 7);
         assertTrue(list.get(7) == 5);
-        assertTrue(!list.has(6));
+        assertTrue(!list.contains(6));
         assertTrue(list.lastIndexOf(6) == -1);
         assertTrue(list.getFirst() == -2);
         assertTrue(list.getLast() == 5);
@@ -122,19 +119,19 @@ public class ListTest {
         System.out.println(list);
         assertTrue(list.lastIndexOf(5) == 5);
         assertTrue(list.size() == 6);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {0, 1, 2, 3, 4, 5}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 0, 1, 2, 3, 4, 5 }));
 
         list.remove(4);
         list.remove(0);
         System.out.println(list);
         assertTrue(list.size() == 4);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {1, 2, 3, 5}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 1, 2, 3, 5 }));
 
         list.removeFirst();
         list.removeLast();
         System.out.println(list);
         assertTrue(list.size() == 2);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {2, 3}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 2, 3 }));
 
         Iterator<Integer> itr = list.iterator();
         assertTrue(itr.hasNext());
@@ -149,7 +146,7 @@ public class ListTest {
         assertTrue(list.indexOf(3) == 0);
         assertTrue(list.lastIndexOf(3) == 0);
         assertTrue(list.size() == 2);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {3, 2}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 3, 2 }));
 
         list.clear();
         System.out.println(list);
@@ -187,7 +184,7 @@ public class ListTest {
         assertTrue(list.indexOf(2) == 1);
 
         assertTrue(list.size() == 2);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {1, 2}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 1, 2 }));
 
         itr = list.iterator();
         assertTrue(itr.hasNext());
@@ -199,28 +196,28 @@ public class ListTest {
         itr = list.iterator();
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 1);
-        assertTrue(list.has(1));
+        assertTrue(list.contains(1));
         itr.remove();
-        assertTrue(!list.has(1));
+        assertTrue(!list.contains(1));
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 2);
         assertTrue(!itr.hasNext());
-        assertTrue(list.has(2));
+        assertTrue(list.contains(2));
 
         list.addLast(1);
         assertTrue(list.size() == 2);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] {2, 1}));
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 2, 1 }));
 
         itr = list.reverseIterator();
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 1);
-        assertTrue(list.has(1));
+        assertTrue(list.contains(1));
         itr.remove();
-        assertTrue(!list.has(1));
+        assertTrue(!list.contains(1));
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 2);
         assertTrue(!itr.hasNext());
-        assertTrue(list.has(2));
+        assertTrue(list.contains(2));
 
         list.clear();
         System.out.println(list);

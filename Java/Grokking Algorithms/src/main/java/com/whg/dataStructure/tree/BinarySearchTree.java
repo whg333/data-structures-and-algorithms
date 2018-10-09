@@ -84,7 +84,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @Override
-    public boolean has(K k) {
+    public boolean contains(K k) {
         checkNotEmpty();
         return hasNode(root, k);
     }

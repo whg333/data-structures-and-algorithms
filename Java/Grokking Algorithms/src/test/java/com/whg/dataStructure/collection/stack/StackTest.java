@@ -8,9 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.collection.stack.ArrayStack;
-import com.whg.dataStructure.collection.stack.Stack;
-
 public class StackTest {
 
     @Before
@@ -57,14 +54,14 @@ public class StackTest {
         itr = stack.iterator();
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 8);
-        assertTrue(stack.has(8));
+        assertTrue(stack.contains(8));
         itr.remove();
         System.out.println(stack);
-        assertTrue(!stack.has(8));
+        assertTrue(!stack.contains(8));
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 5);
         assertTrue(!itr.hasNext());
-        assertTrue(stack.has(5));
+        assertTrue(stack.contains(5));
 
         stack.clear();
         System.out.println(stack);
