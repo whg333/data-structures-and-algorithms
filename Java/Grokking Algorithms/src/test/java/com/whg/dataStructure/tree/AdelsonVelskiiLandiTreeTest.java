@@ -1,5 +1,7 @@
 package com.whg.dataStructure.tree;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 
 import org.junit.After;
@@ -33,11 +35,13 @@ public class AdelsonVelskiiLandiTreeTest {
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 30, 50, 60, 70, 80 }));
 
         tree.add(90);
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 30, 50, 60, 70, 80, 90 }));
 
         System.out.println(" ------------ clear ------------ ");
         tree.clear();
@@ -49,11 +53,13 @@ public class AdelsonVelskiiLandiTreeTest {
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 10, 30, 40, 50, 70 }));
 
         tree.add(5);
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 5, 10, 30, 40, 50, 70 }));
 
         System.out.println(" ------------ clear ------------ ");
         tree.clear();
@@ -65,11 +71,13 @@ public class AdelsonVelskiiLandiTreeTest {
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 10, 30, 40, 50, 70 }));
 
         tree.add(35);
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 10, 30, 35, 40, 50, 70 }));
 
         System.out.println(" ------------ clear ------------ ");
         tree.clear();
@@ -81,11 +89,13 @@ public class AdelsonVelskiiLandiTreeTest {
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 50, 70, 72, 80, 90 }));
 
         tree.add(75);
         System.out.println(tree);
         traverse = tree.inOrderTraverse();
         System.out.println(Arrays.toString(traverse));
+        assertTrue(Arrays.equals(traverse, new Integer[] { 50, 70, 72, 75, 80, 90 }));
     }
 
     @After

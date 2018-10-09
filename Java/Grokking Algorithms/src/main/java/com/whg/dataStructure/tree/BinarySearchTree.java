@@ -106,7 +106,7 @@ public class BinarySearchTree<K> implements Tree<K> {
     @SuppressWarnings("unchecked")
     protected int compare(K a, K b) {
         if (a instanceof Comparable) {
-            return ((Comparable<K>)a).compareTo(b);
+            return ((Comparable<K>) a).compareTo(b);
         }
         return a.hashCode() - b.hashCode();
     }
@@ -226,10 +226,6 @@ public class BinarySearchTree<K> implements Tree<K> {
         return inOrderTraverse();
     }
 
-    private List<K> toList() {
-        return new ArrayList<K>(toArray());
-    }
-
     private class Itr implements Iterator<K> {
 
         K[] array = toArray();
@@ -266,8 +262,7 @@ public class BinarySearchTree<K> implements Tree<K> {
 
         @Override
         public String toString() {
-            return "Node [" + (key != null ? "k=" + key + ", " : "") + (left != null ? "l=" + left + ", " : "")
-                + (right != null ? "r=" + right : "") + "]";
+            return "Node [" + (key != null ? "k=" + key : "") + (left != null ? ", l=" + left : "") + (right != null ? ", r=" + right : "") + "]";
         }
 
     }
