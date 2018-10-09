@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.whg.dataStructure.collection.EmptyCollectionException;
-import com.whg.dataStructure.collection.list.LinkedList;
-import com.whg.dataStructure.collection.list.List;
 
 public class JavaListTest {
 
@@ -93,7 +91,7 @@ public class JavaListTest {
         assertTrue(Arrays.equals(list.toArray(), new Integer[] { -1, 0, 1, 2, 3, 4 }));
 
         list.add(0, -2);
-        list.add(7, 5);
+        list.add(list.size(), 5);
         System.out.println(list);
         assertTrue(list.size() == 8);
         assertTrue(Arrays.equals(list.toArray(), new Integer[] { -2, -1, 0, 1, 2, 3, 4, 5 }));
@@ -195,6 +193,22 @@ public class JavaListTest {
         assertTrue(itr.next() == 2);
         assertTrue(!itr.hasNext());
 
+        itr = list.iterator();
+        assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 1);
+        assertTrue(list.contains(1));
+        itr.remove();
+        assertTrue(!list.contains(1));
+        assertTrue(itr.hasNext());
+        assertTrue(itr.next() == 2);
+        assertTrue(!itr.hasNext());
+        assertTrue(list.contains(2));
+
+        list.add(list.size(), 1);
+        assertTrue(list.size() == 2);
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { 2, 1 }));
+
+        Collections.reverse(list);
         itr = list.iterator();
         assertTrue(itr.hasNext());
         assertTrue(itr.next() == 1);
