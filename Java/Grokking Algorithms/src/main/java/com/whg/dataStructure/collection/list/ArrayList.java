@@ -21,7 +21,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        array = (E[])new Object[capacity];
+        array = (E[]) new Object[capacity];
     }
 
     public ArrayList(E[] array) {
@@ -32,7 +32,7 @@ public class ArrayList<E> implements List<E> {
     @Override
     public boolean add(int index, E e) {
         checkRangeforAdd(index);
-        if (size + 1 > array.length) {
+        if (size + 1 > array.length) { // grow capacity
             array = Arrays.copyOf(array, array.length + (array.length >> 1));
         }
         if (index != size) { // move array element which after index

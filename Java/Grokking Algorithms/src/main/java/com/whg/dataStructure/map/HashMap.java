@@ -63,8 +63,8 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private void checkThreshold(int size) {
-        float currThreshold = 1f * size / array.length;
-        if (currThreshold <= loadFactor) {
+        float threshold = 1f * size / array.length;
+        if (threshold <= loadFactor) {
             return;
         }
 
