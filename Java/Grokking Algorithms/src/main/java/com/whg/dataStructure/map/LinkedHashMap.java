@@ -37,7 +37,7 @@ public class LinkedHashMap<K, V> extends HashMap<K, V> {
 
     @Override
     public Collection<Entry<K, V>> entries() {
-        List<Entry<K, V>> entries = new ArrayList<>();
+        List<Entry<K, V>> entries = new ArrayList<>(size);
         for (K k : list) {
             entries.add(getEntry(k));
         }

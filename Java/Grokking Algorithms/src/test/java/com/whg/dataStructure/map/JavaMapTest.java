@@ -30,20 +30,37 @@ public class JavaMapTest {
         System.out.println(map);
         assertTrue(map.get(5) == 5);
         assertTrue(map.size() == 1);
+        Set<Integer> keys = map.keySet();
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5 }));
+        java.util.Collection<Integer> values = map.values();
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5 }));
 
         map.put(0, 0);
         map.put(7, 7);
         System.out.println(map);
         assertTrue(map.size() == 3);
         assertTrue(!map.isEmpty());
+        keys = map.keySet();
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 7 }));
+        values = map.values();
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 7 }));
 
         map.put(15, 15);
         System.out.println(map);
         assertTrue(map.size() == 4);
+        keys = map.keySet();
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 7, 15 }));
+        values = map.values();
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 7, 15 }));
 
         Integer popEle = map.remove(7);
         System.out.println(map);
         assertTrue(popEle == 7);
+        keys = map.keySet();
+        assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 15 }));
+        values = map.values();
+        assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 15 }));
+
         popEle = map.remove(0);
         System.out.println(map);
         assertTrue(popEle == 0);
@@ -55,11 +72,11 @@ public class JavaMapTest {
         assertTrue(!map.containsKey(7));
         assertTrue(!map.containsValue(7));
 
-        Set<Integer> keys = map.keySet();
+        keys = map.keySet();
         assertTrue(keys.contains(5));
         assertTrue(keys.contains(15));
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15 }));
-        java.util.Collection<Integer> values = map.values();
+        values = map.values();
         assertTrue(values.contains(5));
         assertTrue(values.contains(15));
         assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 15 }));
