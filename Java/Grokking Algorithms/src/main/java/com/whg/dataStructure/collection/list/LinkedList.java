@@ -165,7 +165,7 @@ public class LinkedList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E[] toArray() {
-        E[] array = (E[])new Object[size];
+        E[] array = (E[]) new Object[size];
         Iterator<E> itr = iterator();
         for (int i = 0; itr.hasNext(); i++) {
             array[i] = itr.next();
@@ -235,9 +235,13 @@ public class LinkedList<E> implements List<E> {
         return new ReverseItr();
     }
 
-    private class ReverseItr implements Iterator<E> {
+    protected class ReverseItr implements Iterator<E> {
 
         Iterator<Node<E>> reverseItrNode = reverseIteratorNode();
+
+        public ReverseItr() {
+
+        }
 
         @Override
         public boolean hasNext() {

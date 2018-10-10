@@ -18,6 +18,8 @@ public class StackTest {
     @Test
     public void test() {
         testStack(new ArrayStack<>());
+        System.out.println("\n ------------------ \n");
+        testStack(new LinkedStack<>());
     }
 
     private void testStack(Stack<Integer> stack) {

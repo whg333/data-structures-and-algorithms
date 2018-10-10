@@ -24,11 +24,6 @@ public class ArrayList<E> implements List<E> {
         array = (E[]) new Object[capacity];
     }
 
-    public ArrayList(E[] array) {
-        this.array = array;
-        this.size = array.length;
-    }
-
     @Override
     public boolean add(int index, E e) {
         checkRangeforAdd(index);

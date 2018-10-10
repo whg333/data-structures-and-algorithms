@@ -8,9 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.collection.queue.ArrayQueue;
-import com.whg.dataStructure.collection.queue.Queue;
-
 public class QueueTest {
 
     @Before
@@ -21,6 +18,8 @@ public class QueueTest {
     @Test
     public void test() {
         testQueue(new ArrayQueue<>());
+        System.out.println("\n ------------------ \n");
+        testQueue(new LinkedQueue<>());
     }
 
     private void testQueue(Queue<String> queue) {
