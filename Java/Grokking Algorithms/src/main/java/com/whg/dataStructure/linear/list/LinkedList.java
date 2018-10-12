@@ -147,8 +147,7 @@ public class LinkedList<E> implements List<E> {
         while (itrNode.hasNext()) {
             itrNode.next().clear();
         }
-        head = null;
-        tail = null;
+        head = tail = null;
         size = 0;
     }
 

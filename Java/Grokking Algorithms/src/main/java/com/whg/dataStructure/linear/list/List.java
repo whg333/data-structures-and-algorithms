@@ -8,18 +8,17 @@ import com.whg.dataStructure.EmptyCollectionException;
 
 public interface List<E> extends Collection<E> {
 
+    @Override
+    default boolean add(E e) {
+        return addLast(e);
+    }
+
     default boolean addFirst(E e) {
         Objects.requireNonNull(e);
         return add(0, e);
     }
 
     default boolean addLast(E e) {
-        Objects.requireNonNull(e);
-        return add(size(), e);
-    }
-
-    @Override
-    default boolean add(E e) {
         Objects.requireNonNull(e);
         return add(size(), e);
     }
