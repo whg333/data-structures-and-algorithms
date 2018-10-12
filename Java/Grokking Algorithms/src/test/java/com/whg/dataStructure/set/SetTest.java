@@ -8,9 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.set.HashSet;
-import com.whg.dataStructure.set.Set;
-
 public class SetTest {
 
     @Before
@@ -21,6 +18,8 @@ public class SetTest {
     @Test
     public void test() {
         testSet(new HashSet<>());
+        testSet(new ListSet<>());
+        testSet(new LinkedHashSet<>());
     }
 
     private void testSet(Set<Integer> set) {

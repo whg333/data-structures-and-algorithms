@@ -8,10 +8,9 @@ import com.whg.dataStructure.nolinear.map.Map;
 
 public class HashSet<E> implements Set<E> {
 
-    private static final Object NONE = new Object();
     private static final int DEFAULT_CAPACITY = 8;
 
-    private final Map<E, Object> map;
+    protected Map<E, Object> map;
 
     public HashSet() {
         this(DEFAULT_CAPACITY);
