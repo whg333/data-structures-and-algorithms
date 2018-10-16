@@ -13,7 +13,6 @@ public class ListMap<K, V> implements Map<K, V> {
 
     protected List<K> keys;
     protected List<V> values;
-    protected int size;
 
     public ListMap() {
         this(DEFAULT_CAPACITY);
@@ -28,12 +27,11 @@ public class ListMap<K, V> implements Map<K, V> {
     public void clear() {
         keys.clear();
         values.clear();
-        size = 0;
     }
 
     @Override
     public int size() {
-        return size;
+        return keys.size();
     }
 
     @Override
@@ -42,7 +40,6 @@ public class ListMap<K, V> implements Map<K, V> {
         if (index < 0) {
             keys.add(k);
             values.add(v);
-            size++;
             return null;
         }
         return values.set(index, v);
@@ -54,7 +51,6 @@ public class ListMap<K, V> implements Map<K, V> {
         if (index < 0) {
             return null;
         }
-        size--;
         keys.remove(index);
         return values.remove(index);
     }
@@ -70,6 +66,7 @@ public class ListMap<K, V> implements Map<K, V> {
 
     @Override
     public Collection<Entry<K, V>> entries() {
+        int size = keys.size();
         List<Entry<K, V>> entries = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             entries.add(new Entry<>(keys.get(i), values.get(i)));
@@ -79,7 +76,7 @@ public class ListMap<K, V> implements Map<K, V> {
 
     @Override
     public String toString() {
-        return "ListMap [array=" + Arrays.toString(entries().toArray()) + ", size=" + size + "]";
+        return "ListMap [array=" + Arrays.toString(entries().toArray()) + ", size=" + size() + "]";
     }
 
 }

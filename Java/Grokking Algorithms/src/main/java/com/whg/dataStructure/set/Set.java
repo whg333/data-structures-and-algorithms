@@ -8,17 +8,17 @@ public interface Set<E> extends Collection<E> {
 
     @Override
     default boolean add(E e) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("add");
     }
 
     @Override
     default boolean remove(E e) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("remove");
     }
 
     @Override
     default void clear() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("clear");
     }
 
 }
