@@ -10,9 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.whg.dataStructure.EmptyCollectionException;
-import com.whg.dataStructure.linear.list.ArrayList;
-import com.whg.dataStructure.linear.list.LinkedList;
-import com.whg.dataStructure.linear.list.List;
 
 public class ListTest {
 
@@ -95,9 +92,10 @@ public class ListTest {
 
         list.add(0, -2);
         list.add(7, 5);
+        list.add(5, 9);
         System.out.println(list);
-        assertTrue(list.size() == 8);
-        assertTrue(Arrays.equals(list.toArray(), new Integer[] { -2, -1, 0, 1, 2, 3, 4, 5 }));
+        assertTrue(list.size() == 9);
+        assertTrue(Arrays.equals(list.toArray(), new Integer[] { -2, -1, 0, 1, 2, 9, 3, 4, 5 }));
         assertTrue(list.contains(2));
         assertTrue(list.indexOf(2) == 4);
         assertTrue(list.get(4) == 2);
@@ -105,13 +103,17 @@ public class ListTest {
         assertTrue(list.lastIndexOf(-2) == 0);
         assertTrue(list.get(0) == -2);
         assertTrue(list.contains(5));
-        assertTrue(list.indexOf(5) == 7);
-        assertTrue(list.get(7) == 5);
+        assertTrue(list.indexOf(5) == 8);
+        assertTrue(list.get(7) == 4);
         assertTrue(!list.contains(6));
         assertTrue(list.lastIndexOf(6) == -1);
         assertTrue(list.getFirst() == -2);
         assertTrue(list.getLast() == 5);
+        assertTrue(list.contains(9));
 
+        list.remove(Integer.valueOf(9));
+        System.out.println(list);
+        assertTrue(!list.contains(9));
         list.remove(Integer.valueOf(-1));
         System.out.println(list);
         list.remove(Integer.valueOf(-2));
@@ -152,6 +154,12 @@ public class ListTest {
         assertTrue(Arrays.equals(list.toArray(), new Integer[] { 3, 2 }));
 
         list.clear();
+        System.out.println(list);
+        assertTrue(list.isEmpty());
+        assertTrue(list.size() == 0);
+        itr = list.iterator();
+        assertTrue(!itr.hasNext());
+        list = list.reverse();
         System.out.println(list);
         assertTrue(list.isEmpty());
         assertTrue(list.size() == 0);
