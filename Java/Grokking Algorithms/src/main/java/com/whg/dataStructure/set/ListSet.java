@@ -62,9 +62,4 @@ public class ListSet<E> implements Set<E> {
         return "ListSet [data=" + Arrays.toString(toArray()) + ", size=" + size() + "]";
     }
 
-    @Override
-    public E[] toArray() {
-        return list.toArray();
-    }
-
 }

@@ -8,6 +8,7 @@ import com.whg.dataStructure.Collection;
 import com.whg.dataStructure.linear.list.ArrayList;
 import com.whg.dataStructure.linear.list.LinkedList;
 import com.whg.dataStructure.linear.list.List;
+import com.whg.dataStructure.set.Set;
 
 public class HashMap<K, V> implements Map<K, V> {
 
@@ -158,6 +159,46 @@ public class HashMap<K, V> implements Map<K, V> {
             }
         }
         return entryies;
+    }
+
+    @Override
+    public Set<K> keys() {
+        return new KeySet();
+    }
+
+    private class KeySet implements Set<K> {
+
+        @Override
+        public boolean contains(K k) {
+            return containsKey(k);
+        }
+
+        @Override
+        public Iterator<K> iterator() {
+            return new KeyIterator();
+        }
+
+        @Override
+        public int size() {
+            return size;
+        }
+
+    }
+
+    private class KeyIterator implements Iterator<K> {
+
+        Iterator<Entry<K, V>> itr = entries().iterator();
+
+        @Override
+        public boolean hasNext() {
+            return itr.hasNext();
+        }
+
+        @Override
+        public K next() {
+            return itr.next().k;
+        }
+
     }
 
     @Override

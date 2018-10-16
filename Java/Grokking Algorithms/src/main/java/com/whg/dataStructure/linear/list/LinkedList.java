@@ -161,17 +161,6 @@ public class LinkedList<E> implements List<E> {
         return "LinkedList [data=" + Arrays.toString(toArray()) + ", size=" + size + "]";
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public E[] toArray() {
-        E[] array = (E[]) new Object[size];
-        Iterator<E> itr = iterator();
-        for (int i = 0; itr.hasNext(); i++) {
-            array[i] = itr.next();
-        }
-        return array;
-    }
-
     @Override
     public Iterator<E> iterator() {
         return new Itr();

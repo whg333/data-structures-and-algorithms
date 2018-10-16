@@ -55,15 +55,4 @@ public class HashSet<E> implements Set<E> {
         return "HashSet [data=" + Arrays.toString(toArray()) + ", size=" + size() + "]";
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public E[] toArray() {
-        E[] array = (E[]) new Object[size()];
-        Iterator<E> itr = iterator();
-        for (int i = 0; itr.hasNext(); i++) {
-            array[i] = itr.next();
-        }
-        return array;
-    }
-
 }

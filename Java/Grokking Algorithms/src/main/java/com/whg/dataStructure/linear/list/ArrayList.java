@@ -98,11 +98,6 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public E[] toArray() {
-        return Arrays.copyOf(array, size);
-    }
-
-    @Override
     public Iterator<E> iterator() {
         return new Itr();
     }

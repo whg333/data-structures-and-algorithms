@@ -217,13 +217,13 @@ public class BinarySearchTree<K> implements Tree<K> {
     }
 
     @Override
-    public Iterator<K> iterator() {
-        return new Itr();
+    public K[] toArray() {
+        return inOrderTraverse();
     }
 
     @Override
-    public K[] toArray() {
-        return inOrderTraverse();
+    public Iterator<K> iterator() {
+        return new Itr();
     }
 
     private class Itr implements Iterator<K> {
