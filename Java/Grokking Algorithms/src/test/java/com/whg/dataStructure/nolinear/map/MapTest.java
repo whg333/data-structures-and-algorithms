@@ -21,6 +21,7 @@ public class MapTest {
     @Test
     public void test() {
         testMap(new HashMap<>());
+        testMap(new ListMap<>());
     }
 
     private void testMap(Map<Integer, Integer> map) {
@@ -41,6 +42,7 @@ public class MapTest {
         map.put(15, 15);
         System.out.println(map);
         assertTrue(map.size() == 4);
+        assertTrue(map.get(11) == null);
 
         Integer popEle = map.remove(7);
         System.out.println(map);
@@ -48,6 +50,8 @@ public class MapTest {
         popEle = map.remove(0);
         System.out.println(map);
         assertTrue(popEle == 0);
+        popEle = map.remove(11);
+        assertTrue(popEle == null);
 
         assertTrue(map.containsKey(5));
         assertTrue(map.containsValue(5));
@@ -89,7 +93,11 @@ public class MapTest {
         assertTrue(!Arrays.equals(keys.toArray(), new Integer[] { 5, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
         values = map.values();
         System.out.println(Arrays.toString(values.toArray()));
-        assertTrue(!Arrays.equals(values.toArray(), new Integer[] { 15, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
+        if (map instanceof ListMap) {
+            assertTrue(Arrays.equals(values.toArray(), new Integer[] { 15, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
+        } else {
+            assertTrue(!Arrays.equals(values.toArray(), new Integer[] { 15, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
+        }
 
         map.clear();
         System.out.println(map);

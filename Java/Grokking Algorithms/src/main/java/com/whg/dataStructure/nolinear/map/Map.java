@@ -5,7 +5,7 @@ import com.whg.dataStructure.Container;
 import com.whg.dataStructure.linear.list.ArrayList;
 import com.whg.dataStructure.linear.list.List;
 import com.whg.dataStructure.nolinear.map.HashMap.Entry;
-import com.whg.dataStructure.set.ListSet;
+import com.whg.dataStructure.set.HashSet;
 import com.whg.dataStructure.set.Set;
 
 public interface Map<K, V> extends Container {
@@ -30,11 +30,11 @@ public interface Map<K, V> extends Container {
     }
 
     default Set<K> keySet() {
-        Set<K> keys = new ListSet<>(size());
+        Set<K> keySet = new HashSet<>(size());
         for (Entry<K, V> entry : entries()) {
-            keys.add(entry.key());
+            keySet.add(entry.key());
         }
-        return keys;
+        return keySet;
     }
 
     default Collection<V> values() {
