@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.whg.dataStructure.Collection;
-import com.whg.dataStructure.nolinear.map.LinkedHashMap;
-import com.whg.dataStructure.nolinear.map.Map;
 
 public class LinkedHashMapTest {
 
@@ -33,7 +31,7 @@ public class LinkedHashMapTest {
         System.out.println(map);
         assertTrue(map.get(5) == 5);
         assertTrue(map.size() == 1);
-        Collection<Integer> keys = map.keys();
+        Collection<Integer> keys = map.keySet();
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5 }));
         Collection<Integer> values = map.values();
         assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5 }));
@@ -43,7 +41,7 @@ public class LinkedHashMapTest {
         System.out.println(map);
         assertTrue(map.size() == 3);
         assertTrue(!map.isEmpty());
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 7 }));
         values = map.values();
         assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 7 }));
@@ -51,7 +49,7 @@ public class LinkedHashMapTest {
         map.put(15, 15);
         System.out.println(map);
         assertTrue(map.size() == 4);
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 7, 15 }));
         values = map.values();
         assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 7, 15 }));
@@ -59,7 +57,7 @@ public class LinkedHashMapTest {
         Integer popEle = map.remove(7);
         System.out.println(map);
         assertTrue(popEle == 7);
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 0, 15 }));
         values = map.values();
         assertTrue(Arrays.equals(values.toArray(), new Integer[] { 5, 0, 15 }));
@@ -75,7 +73,7 @@ public class LinkedHashMapTest {
         assertTrue(!map.containsKey(7));
         assertTrue(!map.containsValue(7));
 
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(keys.contains(5));
         assertTrue(keys.contains(15));
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15 }));
@@ -93,7 +91,7 @@ public class LinkedHashMapTest {
         assertTrue(map.containsKey(15));
         assertTrue(map.containsValue(15));
 
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(keys.contains(5));
         assertTrue(keys.contains(15));
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15 }));
@@ -107,7 +105,7 @@ public class LinkedHashMapTest {
         }
         System.out.println(map);
         assertTrue(map.size() == 12);
-        keys = map.keys();
+        keys = map.keySet();
         System.out.println(Arrays.toString(keys.toArray()));
         assertTrue(Arrays.equals(keys.toArray(), new Integer[] { 5, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
         values = map.values();
@@ -118,7 +116,7 @@ public class LinkedHashMapTest {
         System.out.println(map);
         assertTrue(map.isEmpty());
         assertTrue(map.size() == 0);
-        Iterator<Integer> itr = map.keys().iterator();
+        Iterator<Integer> itr = map.keySet().iterator();
         assertTrue(!itr.hasNext());
         itr = map.values().iterator();
         assertTrue(!itr.hasNext());

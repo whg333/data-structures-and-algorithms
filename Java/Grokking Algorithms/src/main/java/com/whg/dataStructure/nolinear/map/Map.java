@@ -29,7 +29,7 @@ public interface Map<K, V> extends Container {
         return false;
     }
 
-    default Set<K> keys() {
+    default Set<K> keySet() {
         Set<K> keys = new ListSet<>(size());
         for (Entry<K, V> entry : entries()) {
             keys.add(entry.key());

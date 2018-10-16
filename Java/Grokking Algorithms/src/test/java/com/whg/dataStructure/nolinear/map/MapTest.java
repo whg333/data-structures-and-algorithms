@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.whg.dataStructure.Collection;
-import com.whg.dataStructure.nolinear.map.HashMap;
-import com.whg.dataStructure.nolinear.map.Map;
 
 public class MapTest {
 
@@ -58,7 +56,7 @@ public class MapTest {
         assertTrue(!map.containsKey(7));
         assertTrue(!map.containsValue(7));
 
-        Collection<Integer> keys = map.keys();
+        Collection<Integer> keys = map.keySet();
         assertTrue(keys.contains(5));
         assertTrue(keys.contains(15));
         Collection<Integer> values = map.values();
@@ -74,7 +72,7 @@ public class MapTest {
         assertTrue(map.containsKey(15));
         assertTrue(map.containsValue(15));
 
-        keys = map.keys();
+        keys = map.keySet();
         assertTrue(keys.contains(5));
         assertTrue(keys.contains(15));
         values = map.values();
@@ -86,7 +84,7 @@ public class MapTest {
         }
         System.out.println(map);
         assertTrue(map.size() == 12);
-        keys = map.keys();
+        keys = map.keySet();
         System.out.println(Arrays.toString(keys.toArray()));
         assertTrue(!Arrays.equals(keys.toArray(), new Integer[] { 5, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 }));
         values = map.values();
@@ -97,7 +95,7 @@ public class MapTest {
         System.out.println(map);
         assertTrue(map.isEmpty());
         assertTrue(map.size() == 0);
-        Iterator<Integer> itr = map.keys().iterator();
+        Iterator<Integer> itr = map.keySet().iterator();
         assertTrue(!itr.hasNext());
         itr = map.values().iterator();
         assertTrue(!itr.hasNext());

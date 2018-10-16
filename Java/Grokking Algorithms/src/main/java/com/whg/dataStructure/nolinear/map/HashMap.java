@@ -162,7 +162,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public Set<K> keys() {
+    public Set<K> keySet() {
         return new KeySet();
     }
 

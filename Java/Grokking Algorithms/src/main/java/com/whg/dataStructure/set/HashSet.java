@@ -47,7 +47,7 @@ public class HashSet<E> implements Set<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return map.keys().iterator();
+        return map.keySet().iterator();
     }
 
     @Override
