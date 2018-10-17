@@ -48,9 +48,9 @@ public class ArrayList<E> implements List<E> {
     @Override
     public E remove(int index) {
         E old = get(index);
-        int numMoved = size - index - 1;
-        if (numMoved > 0) {
-            System.arraycopy(array, index + 1, array, index, numMoved);
+        int movedNum = size - index - 1;
+        if (movedNum > 0) {
+            System.arraycopy(array, index + 1, array, index, movedNum);
         }
         array[--size] = null; // clear to let GC do its work
         return old;
