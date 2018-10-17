@@ -115,14 +115,17 @@ public class LinkedList<E> implements List<E> {
 
     private Node<E> getNode(int index) {
         checkRange(index);
-        Iterator<Node<E>> itrNode = iteratorNode();
-        for (int i = 0; itrNode.hasNext(); i++) {
-            Node<E> next = itrNode.next();
-            if (i == index) {
-                return next;
-            }
+        if (index < (size >> 1)) {
+            Node<E> node = head;
+            for (int i = 0; i < index; i++)
+                node = node.next;
+            return node;
+        } else {
+            Node<E> node = tail;
+            for (int i = size - 1; i > index; i--)
+                node = node.prev;
+            return node;
         }
-        throw new IllegalArgumentException("Can not found index=" + index);
     }
 
     private void checkRangeForAdd(int index) {
