@@ -26,6 +26,8 @@ public class ListTest {
         testList(new ArrayList<>());
         System.out.println("\n ------------------ \n");
         testList(new LinkedList<>());
+        System.out.println("\n ------------------ \n");
+        testList(new HashLinkedList<>());
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -127,7 +129,13 @@ public class ListTest {
         assertTrue(Arrays.equals(list.toArray(), new Integer[] { 0, 1, 2, 3, 4, 5 }));
 
         list.remove(4);
+        assertTrue(list.get(0) == 0);
+        assertTrue(list.get(2) == 2);
+        assertTrue(list.get(4) == 5);
         list.remove(0);
+        assertTrue(list.get(0) == 1);
+        assertTrue(list.get(2) == 3);
+        assertTrue(list.get(3) == 5);
         System.out.println(list);
         assertTrue(list.size() == 4);
         assertTrue(Arrays.equals(list.toArray(), new Integer[] { 1, 2, 3, 5 }));
