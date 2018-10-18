@@ -20,12 +20,16 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E e) {
+        addNode(index, e);
+        return true;
+    }
+
+    protected Node<E> addNode(int index, E e) {
         checkRangeForAdd(index);
         Node<E> newNode = isHead(index) ? linkHead(e) : linkBefore(index, e);
         checkLinkTail(index, newNode);
-
         size++;
-        return true;
+        return newNode;
     }
 
     private Node<E> linkHead(E e) {
@@ -56,15 +60,18 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
+        Node<E> oldNode = removeNode(index);
+        E old = oldNode.item;
+        oldNode.clear();
+        return old;
+    }
+
+    protected Node<E> removeNode(int index) {
         checkRange(index);
         Node<E> oldNode = isHead(index) ? unlinkHead() : unlinkBefore(index);
         checkUnlinkTail(index + 1, oldNode); // tail is index + 1
-
-        E old = oldNode.item;
-        oldNode.clear();
-
         --size;
-        return old;
+        return oldNode;
     }
 
     private Node<E> unlinkHead() {
@@ -113,7 +120,7 @@ public class LinkedList<E> implements List<E> {
         return getNode(index).item;
     }
 
-    private Node<E> getNode(int index) {
+    protected Node<E> getNode(int index) {
         checkRange(index);
         if (index < (size >> 1)) {
             Node<E> node = head;
@@ -134,7 +141,7 @@ public class LinkedList<E> implements List<E> {
         }
     }
 
-    private void checkRange(int index) {
+    protected void checkRange(int index) {
         if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException(outOfBoundsMsg(index));
         }
@@ -281,7 +288,7 @@ public class LinkedList<E> implements List<E> {
 
     }
 
-    private static class Node<E> {
+    protected static class Node<E> {
         E item;
         Node<E> prev;
         Node<E> next;
@@ -297,6 +304,11 @@ public class LinkedList<E> implements List<E> {
             item = null;
             prev = null;
             next = null;
+        }
+
+        @Override
+        public String toString() {
+            return "Node [item=" + item + "]";
         }
 
     }

@@ -7,7 +7,7 @@ import com.whg.dataStructure.nolinear.map.Map;
 
 public class HashLinkedList<E> extends LinkedList<E> {
 
-    protected Map<Integer, E> map;
+    protected Map<Integer, Node<E>> map;
 
     @Override
     public List<E> newInstance() {
@@ -22,12 +22,12 @@ public class HashLinkedList<E> extends LinkedList<E> {
     @Override
     public boolean add(int index, E e) {
         int size = size();
-        boolean result = super.add(index, e);
+        Node<E> newNode = super.addNode(index, e);
         for (int i = size - 1; i >= index; i--) {
             map.put(i + 1, map.get(i));
         }
-        map.put(index, e); // add current index element
-        return result;
+        map.put(index, newNode); // add current index element
+        return true;
     }
 
     @Override
@@ -41,8 +41,15 @@ public class HashLinkedList<E> extends LinkedList<E> {
     }
 
     @Override
-    public E get(int index) {
+    protected Node<E> getNode(int index) {
+        checkRange(index);
         return map.get(index);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        map.clear();
     }
 
     @Override
