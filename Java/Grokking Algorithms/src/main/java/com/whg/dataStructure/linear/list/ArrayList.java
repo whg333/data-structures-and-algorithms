@@ -26,7 +26,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E e) {
-        checkRangeforAdd(index);
+        checkIndexForAdd(index);
         if (size + 1 > array.length) { // grow capacity
             array = Arrays.copyOf(array, array.length + (array.length >> 1));
         }
@@ -39,7 +39,7 @@ public class ArrayList<E> implements List<E> {
         return true;
     }
 
-    private void checkRangeforAdd(int index) {
+    private void checkIndexForAdd(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
@@ -65,11 +65,11 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        checkRange(index);
+        checkIndex(index);
         return array[index];
     }
 
-    private void checkRange(int index) {
+    private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }

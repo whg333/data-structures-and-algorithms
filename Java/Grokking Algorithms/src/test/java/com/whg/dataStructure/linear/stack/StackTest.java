@@ -8,10 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.whg.dataStructure.linear.stack.ArrayStack;
-import com.whg.dataStructure.linear.stack.LinkedStack;
-import com.whg.dataStructure.linear.stack.Stack;
-
 public class StackTest {
 
     @Before
@@ -19,11 +15,21 @@ public class StackTest {
         System.out.println("StackTest before");
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetException() {
+        Stack<Integer> stack = new FixedArrayStack<>(4);
+        stack.push(5, 8);
+        stack.push(11);
+        stack.push(15);
+    }
+
     @Test
     public void test() {
         testStack(new ArrayStack<>());
         System.out.println("\n ------------------ \n");
         testStack(new LinkedStack<>());
+        System.out.println("\n ------------------ \n");
+        testStack(new FixedArrayStack<>());
     }
 
     private void testStack(Stack<Integer> stack) {
